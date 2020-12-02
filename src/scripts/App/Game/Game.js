@@ -1,7 +1,8 @@
 const Sentence = require("./Sentence/Sentence");
 
 class Game {
-  constructor(toto) {
+  constructor(router) {
+    this.router = router;
     this.sentences = [];
     this.step = 0;
     this.$scene = document.getElementById("scene");
@@ -61,7 +62,7 @@ class Game {
   }
   init({ data }) {
     for (let i = 0; i < data.sentences.length; i++) {
-      let stce = new Sentence();
+      let stce = new Sentence(this.router);
       stce.init({ data: data.sentences[i] });
       this.sentences.push(stce);
     }

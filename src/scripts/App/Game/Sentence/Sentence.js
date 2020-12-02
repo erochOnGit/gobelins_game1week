@@ -1,9 +1,9 @@
 const Word = require("./Word/Word");
 
 class Sentence {
-  constructor(sentence) {
+  constructor(router) {
     this.words = [];
-
+    this.router = router;
     this.$sentence = document.querySelector("#sentence");
     this.sizeMaxSentence = 6;
     this.sizeCurrentSentence = 0;
@@ -16,7 +16,7 @@ class Sentence {
     for (let i = 0; i < data.words.length; i++) {
       let wordList = [];
       for (let j = 0; j < data.words[i].length; j++) {
-        let wrd = new Word();
+        let wrd = new Word(this.router);
         wrd.init({ data: data.words[i][j] });
         wordList.push(wrd);
       }

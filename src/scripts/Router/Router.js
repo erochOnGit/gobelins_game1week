@@ -70,13 +70,13 @@ export default class Router {
         this.current = this.getFragment();
 
         this.routes.some(route => {
-        const match = this.current.match(route.path);
-        if (match) {
-            match.shift();
-            route.cb.apply({}, match);
-            return match;
-        }
-        return false;
+            const match = this.current.match(this.clearSlashes(route.path));
+            if (match) {
+                match.shift();
+                route.cb.apply({}, [match]);
+                return match;
+            }
+            return false;
         });
     };
 }  

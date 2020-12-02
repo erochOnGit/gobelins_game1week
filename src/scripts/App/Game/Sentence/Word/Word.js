@@ -1,8 +1,9 @@
 class Word {
-  constructor() {
+  constructor(router) {
     this.picUrl = "";
     this.content = "";
     this.value;
+    this.routeur = router;
   }
   init({ data }) {
     this.content = data.content || "";
