@@ -14,6 +14,8 @@ class Game {
       stce.init({ data: data.sentences[i] });
       this.sentences.push(stce);
     }
+
+    this.sentences[0].addWord(1)
   }
 }
 
