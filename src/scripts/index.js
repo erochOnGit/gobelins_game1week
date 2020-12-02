@@ -1,5 +1,5 @@
 import "../styles/index.scss";
-import Game from "./Game/Game";
+import Game from "./App/Game/Game";
 if (process.env.NODE_ENV === "development") {
   require("../index.html");
 }
@@ -12,129 +12,66 @@ const data = {
         [
           {
             content: "bonjour",
-            picurl: "http://localhost:8080/public/words/phrase1-mot1-off.png",
+            picUrl: "http://localhost:8080/public/words/p1_m1_1.svg",
             value: 5,
           },
           {
-            content: "bonne",
-            picurl: "",
+            content: "bonsoir",
+            picUrl: "http://localhost:8080/public/words/p1_m1_2.svg",
             value: 4,
           },
           {
-            content: "contour",
-            picurl: "",
+            content: "bon appetit",
+            picUrl: "http://localhost:8080/public/words/p1_m1_3.svg",
             value: 3,
           },
+        ],
+        [
           {
-            content: "jour",
-            picurl: "",
-            value: 2,
+            content: "madame",
+            picUrl: "http://localhost:8080/public/words/p1_m2_1.svg",
+            value: 5,
+          },
+          {
+            content: "monsieur",
+            picUrl: "http://localhost:8080/public/words/p1_m2_2.svg",
+            value: 4,
+          },
+          {
+            content: "grand-mère",
+            picUrl: "http://localhost:8080/public/words/p1_m2_3.svg",
+            value: 3,
           },
         ],
         [
-          { content: "je", picurl: "", value: 5 },
-          { content: "tu", picurl: "", value: 4 },
-          { content: "j'y", picurl: "", value: 3 },
-          { content: "jus", picurl: "", value: 2 },
+          { content: "j'aimerais", picUrl: "http://localhost:8080/public/words/p1_m3_1.svg", value: 5 },
+          { content: "je décide", picUrl: "http://localhost:8080/public/words/p1_m3_2.svg", value: 4 },
+          { content: "je préfère", picUrl: "http://localhost:8080/public/words/p1_m3_3.svg", value: 3 },
         ],
         [
-          { content: "voudrai", picurl: "", value: 5 },
-          { content: "prendrai", picurl: "", value: 4 },
-          { content: "mangerai", picurl: "", value: 3 },
-          { content: "hourra", picurl: "", value: 2 },
+          { content: "bien cuite", picUrl: "http://localhost:8080/public/words/p1_m5_1.svg", value: 5 },
+          { content: "croustillant", picUrl: "http://localhost:8080/public/words/p1_m5_2.svg", value: 4 },
+          { content: "moelleux", picUrl: "http://localhost:8080/public/words/p1_m5_3.svg", value: 3 },
         ],
         [
-          { content: "du", picurl: "", value: 5 },
-          { content: "dis", picurl: "", value: 4 },
-          { content: "dans", picurl: "", value: 3 },
-          { content: "de", picurl: "", value: 2 },
-        ],
-        [
-          { content: "pain", picurl: "", value: 5 },
-          { content: "pan", picurl: "", value: 4 },
-          { content: "pour", picurl: "", value: 3 },
-          { content: "pendre", picurl: "", value: 2 },
+          { content: "s'il vous plait", picUrl: "http://localhost:8080/public/words/p1_m6_1.svg", value: 5 },
+          { content: "de rien", picUrl: "http://localhost:8080/public/words/p1_m6_2.svg", value: 4 },
+          { content: "d'accord", picUrl: "http://localhost:8080/public/words/p1_m6_3.svg", value: 3 },
         ],
       ],
     },
   ],
 };
 
-// CLASSES //
-
-// Words
-
-class Words {
-  constructor() {
-    this.listWords = ["toto", "titi", "tata"];
-  }
-  addWord() {}
-}
-
-// Sentence
-
-class Sentence {
-  constructor() {
-    this.$sentence = document.querySelector("#sentence");
-    this.sizeMaxSentence = 6;
-    this.sizeCurrentSentence = 0;
-    this.listWordsSentence = [];
-    this.dictWordsPoint = { toto: 1 };
-    this.dictWordsUrl = {
-      toto:
-        "http://localhost:8080/public/words/phrase1-mot1-off.png",
-    };
-    this.scoreSuccess = 2;
-    this.isSuccess = false;
-    this.isFinish = false;
-  }
-  addWord(word) {
-    this.listWordsSentence.push(word);
-    this.sizeCurrentSentence++;
-    this.appendWord(word);
-    this.controlIsFinish();
-  }
-  appendWord(word) {
-    const wordUrl = this.dictWordsUrl[word];
-    const wordHTML = `<img src="${wordUrl}">`;
-    this.$sentence.innerHTML = this.$sentence.innerHTML + wordHTML;
-  }
-  controlIsFinish() {
-    if (this.sizeCurrentSentence >= this.sizeMaxSentence) {
-      this.isFinish = true;
-      this.controlIsSuccess();
-    }
-  }
-  controlIsSuccess() {
-    let scoreSentence = 0;
-
-    for (let i = 0; i < this.listWordsSentence.length; i++) {
-      const wordSentence = this.listWordsSentence[i];
-      const scoreWord = this.dictWordsPoint[wordSentence];
-      scoreSentence += scoreWord;
-    }
-
-    this.isSuccess = scoreSentence > this.scoreSuccess ? true : false;
-  }
-}
-
 // APP //
 
-const sentence = new Sentence();
+// import App from "./App/App";
 
-sentence.addWord("toto");
-sentence.addWord("toto");
-sentence.addWord("toto");
-sentence.addWord("toto");
-sentence.addWord("toto");
-sentence.addWord("toto");
-sentence.addWord("toto");
-console.log(sentence.isFinish);
-console.log(sentence.isSuccess);
+// const app = new App();
+// app.init();
 
 const game = new Game();
 game.init({ data });
-console.log(game);
 
 function render(timestamp) {
   game.update();
@@ -142,5 +79,3 @@ function render(timestamp) {
 }
 
 requestAnimationFrame(render);
-
-console.log("webpack starterkit");

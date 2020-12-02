@@ -2,12 +2,12 @@ class Word {
   constructor() {
     this.picUrl = "";
     this.content = "";
-    this.similarWords = [];
+    this.value;
   }
   init({ data }) {
     this.content = data.content || "";
     this.picUrl = data.picUrl || "";
-    this.similarWords = data.similarWords || [];
+    this.value = data.value;
   }
   getContent() {
     return this.content;
