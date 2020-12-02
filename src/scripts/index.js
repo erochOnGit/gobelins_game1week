@@ -1,5 +1,5 @@
 import "../styles/index.scss";
-const Game = require("./Game/Game");
+import Game from "./Game/Game";
 if (process.env.NODE_ENV === "development") {
   require("../index.html");
 }
@@ -12,7 +12,7 @@ const data = {
         [
           {
             content: "bonjour",
-            picurl: "",
+            picurl: "http://localhost:8080/public/words/phrase1-mot1-off.png",
             value: 5,
           },
           {
@@ -68,21 +68,22 @@ class Words {
   constructor() {
     this.listWords = ["toto", "titi", "tata"];
   }
-  addWord() {
-    
-  }
+  addWord() {}
 }
 
 // Sentence
 
 class Sentence {
   constructor() {
-    this.$sentence = document.querySelector('#sentence');
+    this.$sentence = document.querySelector("#sentence");
     this.sizeMaxSentence = 6;
     this.sizeCurrentSentence = 0;
     this.listWordsSentence = [];
-    this.dictWordsPoint = { "toto": 1 };
-    this.dictWordsUrl = { "toto": "https://d1fmx1rbmqrxrr.cloudfront.net/cnet/i/edit/2019/04/eso1644bsmall.jpg" };
+    this.dictWordsPoint = { toto: 1 };
+    this.dictWordsUrl = {
+      toto:
+        "http://localhost:8080/public/words/phrase1-mot1-off.png",
+    };
     this.scoreSuccess = 2;
     this.isSuccess = false;
     this.isFinish = false;
@@ -95,7 +96,7 @@ class Sentence {
   }
   appendWord(word) {
     const wordUrl = this.dictWordsUrl[word];
-    const wordHTML = `<img src="${wordUrl}"></p>`;    
+    const wordHTML = `<img src="${wordUrl}">`;
     this.$sentence.innerHTML = this.$sentence.innerHTML + wordHTML;
   }
   controlIsFinish() {
@@ -106,17 +107,16 @@ class Sentence {
   }
   controlIsSuccess() {
     let scoreSentence = 0;
-    
+
     for (let i = 0; i < this.listWordsSentence.length; i++) {
       const wordSentence = this.listWordsSentence[i];
       const scoreWord = this.dictWordsPoint[wordSentence];
       scoreSentence += scoreWord;
     }
-  
+
     this.isSuccess = scoreSentence > this.scoreSuccess ? true : false;
   }
 }
-
 
 // APP //
 
@@ -132,11 +132,15 @@ sentence.addWord("toto");
 console.log(sentence.isFinish);
 console.log(sentence.isSuccess);
 
-
-const Game = require("./Game/Game");
-
 const game = new Game();
 game.init({ data });
 console.log(game);
+
+function render(timestamp) {
+  game.update();
+  requestAnimationFrame(render);
+}
+
+requestAnimationFrame(render);
 
 console.log("webpack starterkit");

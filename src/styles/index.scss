@@ -3,4 +3,33 @@ $body-color: slateblue;
 body {
   color: $body-color;
   font-family: sans-serif;
+  margin: 0;
+}
+
+#game {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+#scene {
+  flex: 2;
+  background: rgb(112, 163, 221);
+
+  .bubble {
+    position: absolute;
+    top: 0;
+    left: 0;
+    cursor: pointer;
+  }
+}
+
+#sentence {
+  background: rgb(106, 202, 106);
+  flex: 0.5;
+
+  img {
+    height: 200px;
+    width: 10vw;
+  }
 }
