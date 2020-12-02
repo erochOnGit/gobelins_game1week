@@ -1,5 +1,4 @@
 import "../styles/index.scss";
-const Game = require("./Game/Game");
 if (process.env.NODE_ENV === "development") {
   require("../index.html");
 }
