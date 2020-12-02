@@ -5,8 +5,21 @@ import Router from "../Router/Router";
 export default class App {
   constructor() {
     this.$app = document.querySelector("#app");
-    this.gameStep = 0;
-    this.levelStep = 0;
+    const sliptHash = window.location.hash.split('/');
+    if (sliptHash.length <= 2) {
+        this.gameStep = 0;
+        this.levelStep = 0;
+    } else {
+        for (let i = 0; i < sliptHash.length; i++) {
+            const hash = sliptHash[i];
+            if (hash == "games") {
+                this.gameStep = parseInt(sliptHash[i+1]);
+            }
+            if (hash == "levels") {
+                this.levelStep = parseInt(sliptHash[i+1]);
+            }
+        }
+    }
     // this.app : si c'est pas dans content c'est que c'est une page (déso c'est sale mais j'ai pas le temps)
     this.app = {
       start: {
@@ -136,7 +149,127 @@ export default class App {
                 ],
               },
             },
+            {
+                content: {
+                    sentences: [
+                    {
+                        words: [
+                        [
+                            {
+                            content: "bonjour",
+                            picUrl:
+                                "http://localhost:8080/public/words/p1_m1_1.svg",
+                            value: 5,
+                            },
+                            {
+                            content: "bonsoir",
+                            picUrl:
+                                "http://localhost:8080/public/words/p1_m1_2.svg",
+                            value: 4,
+                            },
+                            {
+                            content: "bon appetit",
+                            picUrl:
+                                "http://localhost:8080/public/words/p1_m1_3.svg",
+                            value: 3,
+                            },
+                        ],
+                        [
+                            {
+                            content: "madame",
+                            picUrl:
+                                "http://localhost:8080/public/words/p1_m2_1.svg",
+                            value: 5,
+                            },
+                            {
+                            content: "monsieur",
+                            picUrl:
+                                "http://localhost:8080/public/words/p1_m2_2.svg",
+                            value: 4,
+                            },
+                            {
+                            content: "grand-mère",
+                            picUrl:
+                                "http://localhost:8080/public/words/p1_m2_3.svg",
+                            value: 3,
+                            },
+                        ],
+                        [
+                            {
+                            content: "j'aimerais",
+                            picUrl:
+                                "http://localhost:8080/public/words/p1_m3_1.svg",
+                            value: 5,
+                            },
+                            {
+                            content: "je décide",
+                            picUrl:
+                                "http://localhost:8080/public/words/p1_m3_2.svg",
+                            value: 4,
+                            },
+                            {
+                            content: "je préfère",
+                            picUrl:
+                                "http://localhost:8080/public/words/p1_m3_3.svg",
+                            value: 3,
+                            },
+                        ],
+                        [
+                            {
+                            content: "bien cuite",
+                            picUrl:
+                                "http://localhost:8080/public/words/p1_m5_1.svg",
+                            value: 5,
+                            },
+                            {
+                            content: "croustillant",
+                            picUrl:
+                                "http://localhost:8080/public/words/p1_m5_2.svg",
+                            value: 4,
+                            },
+                            {
+                            content: "moelleux",
+                            picUrl:
+                                "http://localhost:8080/public/words/p1_m5_3.svg",
+                            value: 3,
+                            },
+                        ],
+                        [
+                            {
+                            content: "s'il vous plait",
+                            picUrl:
+                                "http://localhost:8080/public/words/p1_m6_1.svg",
+                            value: 5,
+                            },
+                            {
+                            content: "de rien",
+                            picUrl:
+                                "http://localhost:8080/public/words/p1_m6_2.svg",
+                            value: 4,
+                            },
+                            {
+                            content: "d'accord",
+                            picUrl:
+                                "http://localhost:8080/public/words/p1_m6_3.svg",
+                            value: 3,
+                            },
+                        ],
+                        ],
+                    },
+                    ],
+                },
+            }
           ],
+          questionning: {
+            content: {
+              videoURL: "../public/videos/motion-suite.mp4",
+            },
+          },
+          repeating: {
+            content: {
+              videoURL: "../public/videos/motion-repetition.mp4",
+            },
+          },
           ending: {
             content: {
               videoURL: "../public/videos/motion-fin.mp4",
@@ -252,6 +385,12 @@ export default class App {
       case "games_levels":
         this.getPageGameLevel(nameCurrentPage);
         break;
+        case "games_questionning":
+          this.getPageGameQuestionning(nameCurrentPage);
+          break;
+      case "games_repeating":
+        this.getPageGameRepeating(nameCurrentPage);
+        break;
       case "games_ending":
         this.getPageGameEnding(nameCurrentPage);
         break;
@@ -266,6 +405,11 @@ export default class App {
   }
   getPageFinish(page) {
     const $page = this.$app.querySelector(`.${page}`);
+    const $button = $page.querySelector("button");
+    $button.addEventListener("click", () => {
+      this.gameStep = 0;
+      this.router.navigate(`/start`);
+    });
   }
   getPageGameBegining(page) {
     const $page = this.$app.querySelector(`.${page}`);
@@ -277,10 +421,12 @@ export default class App {
   }
   getPageGameLevel(page) {
     const $page = this.$app.querySelector(`.${page}`);
-    console.log(page);
+    console.log(this.levelStep);
 
     this.game.init({
-      data: this.app.games[this.gameStep].levels[this.levelStep].content,
+      data: this.app,
+      gameStep: this.gameStep,
+      levelStep: this.levelStep
     });
     const render = (timestamp) => {
       this.game.update();
@@ -289,12 +435,35 @@ export default class App {
 
     requestAnimationFrame(render);
   }
+  getPageGameQuestionning(page) {
+    const $page = this.$app.querySelector(`.${page}`);
+    const $video = $page.querySelector("video");
+    $video.play();
+    $video.addEventListener("ended", () => {
+        this.levelStep += 1;
+        this.router.navigate(
+          `/games/${this.gameStep}/levels/${this.levelStep}`
+        );
+    });
+  }
+  getPageGameRepeating(page) {
+    const $page = this.$app.querySelector(`.${page}`);
+    const $video = $page.querySelector("video");
+    $video.play();
+    $video.addEventListener("ended", () => {
+        this.router.navigate(
+          `/games/${this.gameStep}/levels/${this.levelStep}`
+        );
+    });
+  }
   getPageGameEnding(page) {
     const $page = this.$app.querySelector(`.${page}`);
     const $video = $page.querySelector("video");
     $video.play();
     $video.addEventListener("ended", () => {
-      if (this.gameStep == this.app.games.length) {
+      this.levelStep = 0;
+      if (this.gameStep == this.app.games.length - 1) {
+        this.gameStep = 0;
         this.router.navigate("/finish");
       } else {
         this.gameStep += 1;
@@ -356,6 +525,12 @@ export default class App {
       case "games_levels":
         this.generatePageGameLevel(page);
         break;
+      case "games_questionning":
+        this.generatePageGameQuestionning(page);
+        break;
+      case "games_repeating":
+        this.generatePageGameRepeating(page);
+        break;
       case "games_ending":
         this.generatePageGameEnding(page);
         break;
@@ -371,7 +546,7 @@ export default class App {
   generatePageFinish(page) {
     this.$app.innerHTML += `
             <div class="is-hide page ${page.name}">
-                <p>Page ${page.name}</p>
+            <button>Retry</button>
             </div>
         `;
   }
@@ -426,6 +601,40 @@ export default class App {
         this.$levels[i].innerHTML += `
                     <div class="is-hide page levels ${page.name}">
                         <p>Page ${page.name}</p>
+                    </div>
+                `;
+      }
+    }
+  }
+  generatePageGameQuestionning(page) {
+    const $games = this.$games.querySelectorAll(".games");
+    for (let i = 0; i < $games.length; i++) {
+      const $game = $games[i];
+      if (page.name.match($game.className.split(" ")[1])) {
+        $game.innerHTML += `
+                    <div class="is-hide page ${page.name}">
+                        <div class="container-video">
+                            <video>
+                                <source src=${page.content.videoURL} type="video/mp4">
+                            </video>
+                        </div>
+                    </div>
+                `;
+      }
+    }
+  }
+  generatePageGameRepeating(page) {
+    const $games = this.$games.querySelectorAll(".games");
+    for (let i = 0; i < $games.length; i++) {
+      const $game = $games[i];
+      if (page.name.match($game.className.split(" ")[1])) {
+        $game.innerHTML += `
+                    <div class="is-hide page ${page.name}">
+                        <div class="container-video">
+                            <video>
+                                <source src=${page.content.videoURL} type="video/mp4">
+                            </video>
+                        </div>
                     </div>
                 `;
       }

@@ -21,7 +21,7 @@ class Game {
       currentSentence.words[currentSentence.listIdWordsSentence.length];
     for (let i = 0; i < this.bubbleCount; i++) {
       let currentWord = currentWordList[i % currentWordList.length];
-      console.log(currentWord);
+      // console.log(currentWord);
       let wordHTML = currentWord.picUrl
         ? `<img id="${currentWord.content + i}" src="${
             currentWord.picUrl
@@ -40,6 +40,19 @@ class Game {
       return () => {
         currentSentence.addWord(wordListId, wordId);
         if (this.sentences[this.step].isFinish) {
+
+          if (this.sentences[this.step].isSuccess) {
+            if (this.levelStep == this.app.games[this.gameStep].levels.length - 1) {
+              this.router.navigate(`/games/${this.gameStep}/ending`);
+            } else {
+              // this.levelStep += 1;
+              // this.router.navigate(`/games/${this.gameStep}/levels/${this.levelStep}`);
+              this.router.navigate(`/games/${this.gameStep}/questionning`);
+            }
+          } else {
+            this.router.navigate(`/games/${this.gameStep}/repeating`);
+          }
+
           let bubble = document.querySelectorAll(".bubble");
           for (let i = 0; i < bubble.length; i++) {
             bubble[i].remove();
@@ -60,10 +73,14 @@ class Game {
       );
     }
   }
-  init({ data }) {
-    for (let i = 0; i < data.sentences.length; i++) {
+  init({ data, gameStep, levelStep }) {
+    this.app = data;
+    this.gameStep = gameStep;
+    this.levelStep = levelStep;
+    const content = data.games[this.gameStep].levels[this.levelStep].content;
+    for (let i = 0; i < content.sentences.length; i++) {
       let stce = new Sentence(this.router);
-      stce.init({ data: data.sentences[i] });
+      stce.init({ data: content.sentences[i] });
       this.sentences.push(stce);
     }
     this.generateBubbles();
@@ -81,7 +98,7 @@ class Game {
     this.step++;
     let bubble = document.querySelectorAll(".bubble");
     for (let i = 0; i < bubble.length; i++) {
-      console.log(i);
+      // console.log(i);
       bubble[i].remove();
       this.generateBubbles();
     }

@@ -52,11 +52,11 @@ class Sentence {
     for (let i = 0; i < this.listIdWordsSentence.length; i++) {
       const idWordSentence = this.listIdWordsSentence[i];
       const scoreWord = this.words[i][idWordSentence].value;
-      console.log("this.words[i]", this.words[i]);
-      console.log(
-        "this.words[i][idWordSentence]",
-        this.words[i][idWordSentence]
-      );
+      // console.log("this.words[i]", this.words[i]);
+      // console.log(
+      //   "this.words[i][idWordSentence]",
+      //   this.words[i][idWordSentence]
+      // );
       scoreSentence += scoreWord;
     }
     this.isSuccess = scoreSentence > this.scoreSuccess ? true : false;
