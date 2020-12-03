@@ -5,20 +5,20 @@ import Router from "../Router/Router";
 export default class App {
   constructor() {
     this.$app = document.querySelector("#app");
-    const sliptHash = window.location.hash.split('/');
+    const sliptHash = window.location.hash.split("/");
     if (sliptHash.length <= 2) {
-        this.gameStep = 0;
-        this.levelStep = 0;
+      this.gameStep = 0;
+      this.levelStep = 0;
     } else {
-        for (let i = 0; i < sliptHash.length; i++) {
-            const hash = sliptHash[i];
-            if (hash == "games") {
-                this.gameStep = parseInt(sliptHash[i+1]);
-            }
-            if (hash == "levels") {
-                this.levelStep = parseInt(sliptHash[i+1]);
-            }
+      for (let i = 0; i < sliptHash.length; i++) {
+        const hash = sliptHash[i];
+        if (hash == "games") {
+          this.gameStep = parseInt(sliptHash[i + 1]);
         }
+        if (hash == "levels") {
+          this.levelStep = parseInt(sliptHash[i + 1]);
+        }
+      }
     }
     // this.app : si c'est pas dans content c'est que c'est une page (déso c'est sale mais j'ai pas le temps)
     this.app = {
@@ -150,115 +150,114 @@ export default class App {
               },
             },
             {
-                content: {
-                    sentences: [
-                    {
-                        words: [
-                        [
-                            {
-                            content: "bonjour",
-                            picUrl:
-                                "http://localhost:8080/public/words/p1_m1_1.svg",
-                            value: 5,
-                            },
-                            {
-                            content: "bonsoir",
-                            picUrl:
-                                "http://localhost:8080/public/words/p1_m1_2.svg",
-                            value: 4,
-                            },
-                            {
-                            content: "bon appetit",
-                            picUrl:
-                                "http://localhost:8080/public/words/p1_m1_3.svg",
-                            value: 3,
-                            },
-                        ],
-                        [
-                            {
-                            content: "madame",
-                            picUrl:
-                                "http://localhost:8080/public/words/p1_m2_1.svg",
-                            value: 5,
-                            },
-                            {
-                            content: "monsieur",
-                            picUrl:
-                                "http://localhost:8080/public/words/p1_m2_2.svg",
-                            value: 4,
-                            },
-                            {
-                            content: "grand-mère",
-                            picUrl:
-                                "http://localhost:8080/public/words/p1_m2_3.svg",
-                            value: 3,
-                            },
-                        ],
-                        [
-                            {
-                            content: "j'aimerais",
-                            picUrl:
-                                "http://localhost:8080/public/words/p1_m3_1.svg",
-                            value: 5,
-                            },
-                            {
-                            content: "je décide",
-                            picUrl:
-                                "http://localhost:8080/public/words/p1_m3_2.svg",
-                            value: 4,
-                            },
-                            {
-                            content: "je préfère",
-                            picUrl:
-                                "http://localhost:8080/public/words/p1_m3_3.svg",
-                            value: 3,
-                            },
-                        ],
-                        [
-                            {
-                            content: "bien cuite",
-                            picUrl:
-                                "http://localhost:8080/public/words/p1_m5_1.svg",
-                            value: 5,
-                            },
-                            {
-                            content: "croustillant",
-                            picUrl:
-                                "http://localhost:8080/public/words/p1_m5_2.svg",
-                            value: 4,
-                            },
-                            {
-                            content: "moelleux",
-                            picUrl:
-                                "http://localhost:8080/public/words/p1_m5_3.svg",
-                            value: 3,
-                            },
-                        ],
-                        [
-                            {
-                            content: "s'il vous plait",
-                            picUrl:
-                                "http://localhost:8080/public/words/p1_m6_1.svg",
-                            value: 5,
-                            },
-                            {
-                            content: "de rien",
-                            picUrl:
-                                "http://localhost:8080/public/words/p1_m6_2.svg",
-                            value: 4,
-                            },
-                            {
-                            content: "d'accord",
-                            picUrl:
-                                "http://localhost:8080/public/words/p1_m6_3.svg",
-                            value: 3,
-                            },
-                        ],
-                        ],
-                    },
+              content: {
+                sentences: [
+                  {
+                    words: [
+                      [
+                        {
+                          content: "SALUT",
+                          picUrl: "",
+                          value: 5,
+                        },
+                        {
+                          content: "bonsoir",
+                          picUrl:
+                            "http://localhost:8080/public/words/p1_m1_2.svg",
+                          value: 4,
+                        },
+                        {
+                          content: "bon appetit",
+                          picUrl:
+                            "http://localhost:8080/public/words/p1_m1_3.svg",
+                          value: 3,
+                        },
+                      ],
+                      [
+                        {
+                          content: "madame",
+                          picUrl:
+                            "http://localhost:8080/public/words/p1_m2_1.svg",
+                          value: 5,
+                        },
+                        {
+                          content: "monsieur",
+                          picUrl:
+                            "http://localhost:8080/public/words/p1_m2_2.svg",
+                          value: 4,
+                        },
+                        {
+                          content: "grand-mère",
+                          picUrl:
+                            "http://localhost:8080/public/words/p1_m2_3.svg",
+                          value: 3,
+                        },
+                      ],
+                      [
+                        {
+                          content: "j'aimerais",
+                          picUrl:
+                            "http://localhost:8080/public/words/p1_m3_1.svg",
+                          value: 5,
+                        },
+                        {
+                          content: "je décide",
+                          picUrl:
+                            "http://localhost:8080/public/words/p1_m3_2.svg",
+                          value: 4,
+                        },
+                        {
+                          content: "je préfère",
+                          picUrl:
+                            "http://localhost:8080/public/words/p1_m3_3.svg",
+                          value: 3,
+                        },
+                      ],
+                      [
+                        {
+                          content: "bien cuite",
+                          picUrl:
+                            "http://localhost:8080/public/words/p1_m5_1.svg",
+                          value: 5,
+                        },
+                        {
+                          content: "croustillant",
+                          picUrl:
+                            "http://localhost:8080/public/words/p1_m5_2.svg",
+                          value: 4,
+                        },
+                        {
+                          content: "moelleux",
+                          picUrl:
+                            "http://localhost:8080/public/words/p1_m5_3.svg",
+                          value: 3,
+                        },
+                      ],
+                      [
+                        {
+                          content: "s'il vous plait",
+                          picUrl:
+                            "http://localhost:8080/public/words/p1_m6_1.svg",
+                          value: 5,
+                        },
+                        {
+                          content: "de rien",
+                          picUrl:
+                            "http://localhost:8080/public/words/p1_m6_2.svg",
+                          value: 4,
+                        },
+                        {
+                          content: "d'accord",
+                          picUrl:
+                            "http://localhost:8080/public/words/p1_m6_3.svg",
+                          value: 3,
+                        },
+                      ],
                     ],
-                },
-            }
+                  },
+                ],
+              },
+            },
           ],
           questionning: {
             content: {
@@ -298,6 +297,11 @@ export default class App {
     }
 
     this.game = new Game(this.router);
+    this.game.init({
+      data: this.app,
+      gameStep: this.gameStep,
+      levelStep: this.levelStep,
+    });
   }
   addRoutes(obj) {
     let nodes = [
@@ -385,9 +389,9 @@ export default class App {
       case "games_levels":
         this.getPageGameLevel(nameCurrentPage);
         break;
-        case "games_questionning":
-          this.getPageGameQuestionning(nameCurrentPage);
-          break;
+      case "games_questionning":
+        this.getPageGameQuestionning(nameCurrentPage);
+        break;
       case "games_repeating":
         this.getPageGameRepeating(nameCurrentPage);
         break;
@@ -419,31 +423,30 @@ export default class App {
       this.router.navigate(`/games/${this.gameStep}/levels/${this.levelStep}`);
     });
   }
+
   getPageGameLevel(page) {
     const $page = this.$app.querySelector(`.${page}`);
     console.log(this.levelStep);
 
-    this.game.init({
-      data: this.app,
-      gameStep: this.gameStep,
-      levelStep: this.levelStep
-    });
-    const render = (timestamp) => {
+    this.game.updateStep(this.gameStep, this.levelStep);
+    this.game.setUpContainer();
+    this.game.generateBubbles();
+
+    const render = () => {
       this.game.update();
       requestAnimationFrame(render);
     };
 
     requestAnimationFrame(render);
   }
+
   getPageGameQuestionning(page) {
     const $page = this.$app.querySelector(`.${page}`);
     const $video = $page.querySelector("video");
     $video.play();
     $video.addEventListener("ended", () => {
-        this.levelStep += 1;
-        this.router.navigate(
-          `/games/${this.gameStep}/levels/${this.levelStep}`
-        );
+      this.levelStep += 1;
+      this.router.navigate(`/games/${this.gameStep}/levels/${this.levelStep}`);
     });
   }
   getPageGameRepeating(page) {
@@ -451,9 +454,7 @@ export default class App {
     const $video = $page.querySelector("video");
     $video.play();
     $video.addEventListener("ended", () => {
-        this.router.navigate(
-          `/games/${this.gameStep}/levels/${this.levelStep}`
-        );
+      this.router.navigate(`/games/${this.gameStep}/levels/${this.levelStep}`);
     });
   }
   getPageGameEnding(page) {

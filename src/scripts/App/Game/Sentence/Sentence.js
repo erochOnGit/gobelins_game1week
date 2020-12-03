@@ -4,7 +4,6 @@ class Sentence {
   constructor(router) {
     this.words = [];
     this.router = router;
-    this.$sentence = document.querySelector("#sentence");
     this.sizeMaxSentence = 6;
     this.sizeCurrentSentence = 0;
     this.listIdWordsSentence = [];
@@ -12,6 +11,7 @@ class Sentence {
     this.isSuccess = false;
     this.isFinish = false;
   }
+
   init({ data }) {
     for (let i = 0; i < data.words.length; i++) {
       let wordList = [];
@@ -24,6 +24,9 @@ class Sentence {
     }
     this.sizeMaxSentence = data.words.length;
   }
+  updateContainer(pageRoute) {
+    this.$sentence = document.querySelector(pageRoute + " #sentence");
+  }
   addWord(wordListId, wordId) {
     this.listIdWordsSentence.push(wordId);
     this.sizeCurrentSentence++;
@@ -32,13 +35,14 @@ class Sentence {
   }
   appendWord(wordListId, wordId) {
     let wordHTML = null;
-    if (this.words[wordListId][wordId].picurl) {
-      const wordUrl = this.words[wordListId][wordId].picurl;
+    if (this.words[wordListId][wordId].picUrl) {
+      const wordUrl = this.words[wordListId][wordId].picUrl;
       wordHTML = `<img src="${wordUrl}"/>`;
     } else {
       const wordText = this.words[wordListId][wordId].content;
       wordHTML = `<p>${wordText}</p>`;
     }
+
     this.$sentence.innerHTML = this.$sentence.innerHTML + wordHTML;
   }
   controlIsFinish() {
@@ -52,11 +56,6 @@ class Sentence {
     for (let i = 0; i < this.listIdWordsSentence.length; i++) {
       const idWordSentence = this.listIdWordsSentence[i];
       const scoreWord = this.words[i][idWordSentence].value;
-      // console.log("this.words[i]", this.words[i]);
-      // console.log(
-      //   "this.words[i][idWordSentence]",
-      //   this.words[i][idWordSentence]
-      // );
       scoreSentence += scoreWord;
     }
     this.isSuccess = scoreSentence > this.scoreSuccess ? true : false;
