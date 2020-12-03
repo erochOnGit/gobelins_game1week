@@ -1,6 +1,7 @@
 import Game from "./Game/Game";
 
 import Router from "../Router/Router";
+import Timer from "../Timer/Timer";
 
 export default class App {
   constructor() {
@@ -295,6 +296,8 @@ export default class App {
         this.getPage();
       });
     }
+
+    this.timer = new Timer();
 
     this.game = new Game(this.router);
     this.game.init({
