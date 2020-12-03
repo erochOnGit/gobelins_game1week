@@ -1,8 +1,7 @@
 const Sentence = require("./Sentence/Sentence");
-import * as dat from "dat.gui";
 
 class Game {
-  constructor(router) {
+  constructor(router, gui) {
     this.router = router;
     this.sentences = [];
     this.step = 0;
@@ -10,6 +9,8 @@ class Game {
     this.bubbleCount = 10;
     this.wordCount = 0;
     this.transitioning = false;
+    this.gui = gui;
+    this.guiItem = [];
   }
   init({ data, gameStep, levelStep }) {
     this.app = data;
@@ -23,21 +24,34 @@ class Game {
       stce.init({ data: content[i] });
       this.sentences.push(stce);
     }
-    this.gui = new dat.GUI();
+    console.log("INIT", this.sentences);
     this.obj = {
       size: 23,
       speed: 2,
     };
 
     // String field
-    this.gui.add(this.obj, "speed");
-    this.gui.add(this.obj, "size");
+    this.guiItem.push(this.gui.add(this.obj, "speed"));
+    this.guiItem.push(this.gui.add(this.obj, "size"));
+  }
+  reset() {
+    console.log("RESET");
+    this.sentences = [];
+    this.step = 0;
+    this.bubbles = [];
+    this.bubbleCount = 10;
+    this.wordCount = 0;
+    this.transitioning = false;
+    // this.guiItem.forEach((item) => {
+    //   this.gui.remove(item);
+    // });
   }
   updateStep(gameStep, levelStep) {
     this.gameStep = gameStep;
     this.levelStep = levelStep;
   }
   setUpContainer() {
+    console.log(this.levelStep, this.sentences);
     this.$container = document.querySelector(
       `.games_${this.gameStep}_levels_${this.levelStep}`
     );
@@ -65,9 +79,13 @@ class Game {
     for (let i = 0; i < this.bubbleCount; i++) {
       let currentWord = currentWordList[i % currentWordList.length];
       let wordHTML = currentWord.picUrl
-        ? `<img id="${currentWord.content + i}" src="${
-            currentWord.picUrl
-          }" class="bubble" data-position=0,0 data-direction=${Math.random()},${Math.random()}>`
+        ? `<div class="bubble" data-position=0,0 data-direction=${Math.random()},${Math.random()} id="${
+            currentWord.content + i
+          }">
+            <div class="bubble_relativeContainer">
+              ${currentWord.picUrl}
+            </div>
+          </div>`
         : `<div id="${
             currentWord.content + i
           }"  class="bubble" data-position=0,0 data-direction=${Math.random()},${Math.random()}>${
@@ -78,10 +96,12 @@ class Game {
       this.$scene.innerHTML = this.$scene.innerHTML + wordHTML;
     }
     let bubble = document.querySelectorAll(".bubble");
+    let svg = document.querySelectorAll(".bubble_relativeContainer svg");
     let handleclick = ({ wordListId, wordId }) => {
       return () => {
         currentSentence.addWord(wordListId, wordId);
         if (this.sentences[this.levelStep].isFinish) {
+          this.$game.remove();
           if (this.sentences[this.levelStep].isSuccess) {
             if (
               this.levelStep ==
@@ -107,14 +127,15 @@ class Game {
       };
     };
     for (let k = 0; k < bubble.length; k++) {
-      bubble[k].addEventListener(
-        "click",
-        handleclick({
-          wordListId: currentSentence.listIdWordsSentence.length,
-          wordId: k % currentWordList.length,
-        }).bind(this),
-        false
-      );
+      svg[k] &&
+        svg[k].addEventListener(
+          "click",
+          handleclick({
+            wordListId: currentSentence.listIdWordsSentence.length,
+            wordId: k % currentWordList.length,
+          }).bind(this),
+          false
+        );
     }
   }
 
