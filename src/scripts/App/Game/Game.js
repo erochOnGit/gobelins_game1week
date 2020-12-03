@@ -37,7 +37,7 @@ class Game {
   }
   reset() {
     // console.log("RESET");
-    this.sentences = [];
+    // this.sentences = [];
     this.step = 0;
     this.bubbles = [];
     this.bubbleCount = 10;

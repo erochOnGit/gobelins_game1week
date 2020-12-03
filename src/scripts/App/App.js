@@ -441,8 +441,18 @@ export default class App {
     const $button = $page.querySelector("button");
     //TODO remove event at the end of the click
     $button.addEventListener("click", () => {
-        this.game && this.game.reset();
-      this.router.navigate(`/games/${this.gameStep}/begining`);
+        if (this.game) {
+            this.game.reset();
+            this.game.sentences = [];
+        }
+  
+        this.game.init({
+          data: this.app,
+          gameStep: this.gameStep,
+          levelStep: this.levelStep,
+          timer: this.timer
+        });
+        this.router.navigate(`/games/${this.gameStep}/begining`);
     });
   }
   getPageFinish(page) {
@@ -468,13 +478,6 @@ export default class App {
     // console.log("gamelvl", this.game.sentences);
 
     this.timer && this.timer.init();
-  
-    this.game.init({
-      data: this.app,
-      gameStep: this.gameStep,
-      levelStep: this.levelStep,
-      timer: this.timer
-    });
 
     this.game.updateStep(this.gameStep, this.levelStep);
     this.game.setUpContainer();
@@ -485,11 +488,10 @@ export default class App {
           if (!this.timer.isStop) {
             this.router.navigate(`/games/${this.gameStep}/timing`);
             cancelAnimationFrame(render);
-            this.$game = document.querySelector(
-              `.games_${this.gameStep}_levels_${this.levelStep} #game`
-            );
+            this.game.sentences[this.levelStep].listIdWordsSentence = [];
+            this.game.sentences[this.levelStep].sizeCurrentSentence = 0;
             this.game.reset()
-            this.$game.remove()
+            this.game.$game.remove()
           }
       } else {
         requestAnimationFrame(render);
