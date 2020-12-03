@@ -2,14 +2,14 @@ export default class Timer {
   constructor() {
     this.limitTime = {
       minutes: 0,
-      seconds: 4,
+      seconds: 10,
     };
-    this.reset();
   }
   getTime() {
     const currentTime = new Date().getTime();
-    const distanceTime = currentTime - this.beginTime;
+    const distanceTime = this.limitTime.value - currentTime;
     this.time = {
+      distance: 0 + (100 - 0) * (distanceTime - 0) / ((this.limitTime.value - this.beginTime) - 0),
       minutes: this.convertTime(
         Math.floor((distanceTime % (1000 * 60 * 60)) / (1000 * 60))
       ),
@@ -23,8 +23,9 @@ export default class Timer {
   controlIsFinish() {
     const currentTime = new Date().getTime();
     if (this.limitTime.value < currentTime) {
-      this.finish = true;
+      this.isFinish = true;
     }
+    return this.isFinish;
   }
   convertTime(value) {
     let result = String(value);
@@ -33,13 +34,21 @@ export default class Timer {
     }
     return result;
   }
-  reset() {
+  init() {
     this.beginTime = new Date().getTime();
     this.limitTime.value = new Date(
       Date.parse(new Date()) +
         (this.limitTime.minutes + 1) * this.limitTime.seconds * 1000
     ).getTime();
-    this.finish = false;
+    this.isStop = false;
+    this.isFinish = false;
     this.getTime();
+  }
+  stop() {
+      this.isStop = true;
+  }
+  reset() {
+    this.stop();
+    this.init();
   }
 }

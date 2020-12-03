@@ -292,6 +292,11 @@ export default class App {
               },
             },
           ],
+          timing: {
+            content: {
+              videoURL: "../public/videos/motion-retry.mp4",
+            },
+          },
           questionning: {
             content: {
               videoURL: "../public/videos/motion-suite.mp4",
@@ -417,6 +422,9 @@ export default class App {
       case "games_levels":
         this.getPageGameLevel(nameCurrentPage);
         break;
+      case "games_timing":
+        this.getPageGameTiming(nameCurrentPage);
+        break;
       case "games_questionning":
         this.getPageGameQuestionning(nameCurrentPage);
         break;
@@ -433,13 +441,7 @@ export default class App {
     const $button = $page.querySelector("button");
     //TODO remove event at the end of the click
     $button.addEventListener("click", () => {
-      this.game && this.game.reset();
-
-      this.game.init({
-        data: this.app,
-        gameStep: this.gameStep,
-        levelStep: this.levelStep,
-      });
+        this.game && this.game.reset();
       this.router.navigate(`/games/${this.gameStep}/begining`);
     });
   }
@@ -448,6 +450,7 @@ export default class App {
     const $button = $page.querySelector("button");
     $button.addEventListener("click", () => {
       this.gameStep = 0;
+      this.levelStep = 0;
       this.router.navigate(`/start`);
     });
   }
@@ -462,20 +465,48 @@ export default class App {
 
   getPageGameLevel(page) {
     const $page = this.$app.querySelector(`.${page}`);
-    console.log("gamelvl", this.game.sentences);
+    // console.log("gamelvl", this.game.sentences);
+
+    this.timer && this.timer.init();
+  
+    this.game.init({
+      data: this.app,
+      gameStep: this.gameStep,
+      levelStep: this.levelStep,
+      timer: this.timer
+    });
 
     this.game.updateStep(this.gameStep, this.levelStep);
     this.game.setUpContainer();
     this.game.generateBubbles();
 
     const render = () => {
+      if (this.timer.controlIsFinish()) {
+          if (!this.timer.isStop) {
+            this.router.navigate(`/games/${this.gameStep}/timing`);
+            cancelAnimationFrame(render);
+            this.$game = document.querySelector(
+              `.games_${this.gameStep}_levels_${this.levelStep} #game`
+            );
+            this.game.reset()
+            this.$game.remove()
+          }
+      } else {
+        requestAnimationFrame(render);
+      }
       this.game.update();
-      requestAnimationFrame(render);
     };
 
     requestAnimationFrame(render);
   }
-
+  getPageGameTiming(page) {
+    const $page = this.$app.querySelector(`.${page}`);
+    const $video = $page.querySelector("video");
+    $video.play();
+    $video.addEventListener("ended", () => {
+      this.router.navigate(`/games/${this.gameStep}/levels/${this.levelStep}`);
+    });
+  }
   getPageGameQuestionning(page) {
     const $page = this.$app.querySelector(`.${page}`);
     const $video = $page.querySelector("video");
@@ -557,19 +588,14 @@ export default class App {
         this.generatePageGame(page);
         break;
       case "games_begining":
-        this.generatePageGameBegining(page);
+      case "games_timing":
+      case "games_questionning":
+      case "games_repeating":
+      case "games_ending":
+        this.generatePageGameVideo(page);
         break;
       case "games_levels":
         this.generatePageGameLevel(page);
-        break;
-      case "games_questionning":
-        this.generatePageGameQuestionning(page);
-        break;
-      case "games_repeating":
-        this.generatePageGameRepeating(page);
-        break;
-      case "games_ending":
-        this.generatePageGameEnding(page);
         break;
     }
   }
@@ -601,7 +627,7 @@ export default class App {
             </div>
         `;
   }
-  generatePageGameBegining(page) {
+  generatePageGameVideo(page) {
     const $games = this.$games.querySelectorAll(".games");
     for (let i = 0; i < $games.length; i++) {
       const $game = $games[i];
@@ -638,57 +664,6 @@ export default class App {
         this.$levels[i].innerHTML += `
                     <div class="is-hide page levels ${page.name}">
                         <p>Page ${page.name}</p>
-                    </div>
-                `;
-      }
-    }
-  }
-  generatePageGameQuestionning(page) {
-    const $games = this.$games.querySelectorAll(".games");
-    for (let i = 0; i < $games.length; i++) {
-      const $game = $games[i];
-      if (page.name.match($game.className.split(" ")[1])) {
-        $game.innerHTML += `
-                    <div class="is-hide page ${page.name}">
-                        <div class="container-video">
-                            <video>
-                                <source src=${page.content.videoURL} type="video/mp4">
-                            </video>
-                        </div>
-                    </div>
-                `;
-      }
-    }
-  }
-  generatePageGameRepeating(page) {
-    const $games = this.$games.querySelectorAll(".games");
-    for (let i = 0; i < $games.length; i++) {
-      const $game = $games[i];
-      if (page.name.match($game.className.split(" ")[1])) {
-        $game.innerHTML += `
-                    <div class="is-hide page ${page.name}">
-                        <div class="container-video">
-                            <video>
-                                <source src=${page.content.videoURL} type="video/mp4">
-                            </video>
-                        </div>
-                    </div>
-                `;
-      }
-    }
-  }
-  generatePageGameEnding(page) {
-    const $games = this.$games.querySelectorAll(".games");
-    for (let i = 0; i < $games.length; i++) {
-      const $game = $games[i];
-      if (page.name.match($game.className.split(" ")[1])) {
-        $game.innerHTML += `
-                    <div class="is-hide page ${page.name}">
-                        <div class="container-video">
-                            <video>
-                                <source src=${page.content.videoURL} type="video/mp4">
-                            </video>
-                        </div>
                     </div>
                 `;
       }
