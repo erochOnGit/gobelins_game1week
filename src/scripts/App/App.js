@@ -1,6 +1,7 @@
 import Game from "./Game/Game";
 import * as dat from "dat.gui";
 import Router from "../Router/Router";
+import Timer from "../Timer/Timer";
 
 export default class App {
   constructor() {
@@ -327,6 +328,7 @@ export default class App {
         this.getPage();
       });
     }
+    this.timer = new Timer();
     this.game = new Game(this.router, this.gui);
   }
   addRoutes(obj) {
