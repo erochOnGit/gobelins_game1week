@@ -1,11 +1,13 @@
 import Game from "./Game/Game";
-
+import * as dat from "dat.gui";
 import Router from "../Router/Router";
 
 export default class App {
   constructor() {
     this.$app = document.querySelector("#app");
     const sliptHash = window.location.hash.split("/");
+    this.gui = new dat.GUI();
+
     if (sliptHash.length <= 2) {
       this.gameStep = 0;
       this.levelStep = 0;
@@ -49,18 +51,24 @@ export default class App {
                           content: "bonjour",
                           picUrl:
                             "http://localhost:8080/public/words/p1_m1_1.svg",
+                          backgroundUrl:
+                            "http://localhost:8080/public/words/p1_m1_1_c1.svg",
                           value: 5,
                         },
                         {
                           content: "bonsoir",
                           picUrl:
                             "http://localhost:8080/public/words/p1_m1_2.svg",
+                          backgroundUrl:
+                            "http://localhost:8080/public/words/p1_m1_2_c2.svg",
                           value: 4,
                         },
                         {
                           content: "bon appetit",
                           picUrl:
                             "http://localhost:8080/public/words/p1_m1_3.svg",
+                          backgroundUrl:
+                            "http://localhost:8080/public/words/p1_m1_3_c3.svg",
                           value: 3,
                         },
                       ],
@@ -69,18 +77,24 @@ export default class App {
                           content: "madame",
                           picUrl:
                             "http://localhost:8080/public/words/p1_m2_1.svg",
+                          backgroundUrl:
+                            "http://localhost:8080/public/words/p1_m2_1_c1.svg",
                           value: 5,
                         },
                         {
                           content: "monsieur",
                           picUrl:
                             "http://localhost:8080/public/words/p1_m2_2.svg",
+                          backgroundUrl:
+                            "http://localhost:8080/public/words/p1_m2_2_c2.svg",
                           value: 4,
                         },
                         {
                           content: "grand-mère",
                           picUrl:
                             "http://localhost:8080/public/words/p1_m2_3.svg",
+                          backgroundUrl:
+                            "http://localhost:8080/public/words/p1_m2_3_c3.svg",
                           value: 3,
                         },
                       ],
@@ -89,18 +103,24 @@ export default class App {
                           content: "j'aimerais",
                           picUrl:
                             "http://localhost:8080/public/words/p1_m3_1.svg",
+                          backgroundUrl:
+                            "http://localhost:8080/public/words/p1_m3_1_c1.svg",
                           value: 5,
                         },
                         {
                           content: "je décide",
                           picUrl:
                             "http://localhost:8080/public/words/p1_m3_2.svg",
+                          backgroundUrl:
+                            "http://localhost:8080/public/words/p1_m3_2_c2.svg",
                           value: 4,
                         },
                         {
                           content: "je préfère",
                           picUrl:
                             "http://localhost:8080/public/words/p1_m3_3.svg",
+                          backgroundUrl:
+                            "http://localhost:8080/public/words/p1_m3_3_c3.svg",
                           value: 3,
                         },
                       ],
@@ -109,18 +129,24 @@ export default class App {
                           content: "bien cuite",
                           picUrl:
                             "http://localhost:8080/public/words/p1_m5_1.svg",
+                          backgroundUrl:
+                            "http://localhost:8080/public/words/p1_m5_1_c1.svg",
                           value: 5,
                         },
                         {
                           content: "croustillant",
                           picUrl:
                             "http://localhost:8080/public/words/p1_m5_2.svg",
+                          backgroundUrl:
+                            "http://localhost:8080/public/words/p1_m5_2_c2.svg",
                           value: 4,
                         },
                         {
                           content: "moelleux",
                           picUrl:
                             "http://localhost:8080/public/words/p1_m5_3.svg",
+                          backgroundUrl:
+                            "http://localhost:8080/public/words/p1_m5_3_c3.svg",
                           value: 3,
                         },
                       ],
@@ -129,18 +155,24 @@ export default class App {
                           content: "s'il vous plait",
                           picUrl:
                             "http://localhost:8080/public/words/p1_m6_1.svg",
+                          backgroundUrl:
+                            "http://localhost:8080/public/words/p1_m6_1_c1.svg",
                           value: 5,
                         },
                         {
                           content: "de rien",
                           picUrl:
                             "http://localhost:8080/public/words/p1_m6_2.svg",
+                          backgroundUrl:
+                            "http://localhost:8080/public/words/p1_m6_2_c2.svg",
                           value: 4,
                         },
                         {
                           content: "d'accord",
                           picUrl:
                             "http://localhost:8080/public/words/p1_m6_3.svg",
+                          backgroundUrl:
+                            "http://localhost:8080/public/words/p1_m6_3_c3.svg",
                           value: 3,
                         },
                       ],
@@ -157,19 +189,26 @@ export default class App {
                       [
                         {
                           content: "SALUT",
-                          picUrl: "",
+                          picUrl:
+                            "http://localhost:8080/public/words/p2_m1_1.svg",
+                          backgroundUrl:
+                            "http://localhost:8080/public/words/p2_m1_1_c1.svg",
                           value: 5,
                         },
                         {
                           content: "bonsoir",
                           picUrl:
-                            "http://localhost:8080/public/words/p1_m1_2.svg",
+                            "http://localhost:8080/public/words/p2_m1_2.svg",
+                          backgroundUrl:
+                            "http://localhost:8080/public/words/p2_m1_2_c2.svg",
                           value: 4,
                         },
                         {
                           content: "bon appetit",
                           picUrl:
-                            "http://localhost:8080/public/words/p1_m1_3.svg",
+                            "http://localhost:8080/public/words/p2_m1_3.svg",
+                          backgroundUrl:
+                            "http://localhost:8080/public/words/p2_m1_3_c3.svg",
                           value: 3,
                         },
                       ],
@@ -177,19 +216,25 @@ export default class App {
                         {
                           content: "madame",
                           picUrl:
-                            "http://localhost:8080/public/words/p1_m2_1.svg",
+                            "http://localhost:8080/public/words/p2_m2_1.svg",
+                          backgroundUrl:
+                            "http://localhost:8080/public/words/p2_m2_1_c1.svg",
                           value: 5,
                         },
                         {
                           content: "monsieur",
                           picUrl:
-                            "http://localhost:8080/public/words/p1_m2_2.svg",
+                            "http://localhost:8080/public/words/p2_m2_2.svg",
+                          backgroundUrl:
+                            "http://localhost:8080/public/words/p2_m2_2_c2.svg",
                           value: 4,
                         },
                         {
                           content: "grand-mère",
                           picUrl:
-                            "http://localhost:8080/public/words/p1_m2_3.svg",
+                            "http://localhost:8080/public/words/p2_m2_3.svg",
+                          backgroundUrl:
+                            "http://localhost:8080/public/words/p2_m2_3_c3.svg",
                           value: 3,
                         },
                       ],
@@ -197,19 +242,25 @@ export default class App {
                         {
                           content: "j'aimerais",
                           picUrl:
-                            "http://localhost:8080/public/words/p1_m3_1.svg",
+                            "http://localhost:8080/public/words/p2_m3_1.svg",
+                          backgroundUrl:
+                            "http://localhost:8080/public/words/p2_m3_1_c1.svg",
                           value: 5,
                         },
                         {
                           content: "je décide",
                           picUrl:
-                            "http://localhost:8080/public/words/p1_m3_2.svg",
+                            "http://localhost:8080/public/words/p2_m3_2.svg",
+                          backgroundUrl:
+                            "http://localhost:8080/public/words/p2_m3_2_c2.svg",
                           value: 4,
                         },
                         {
                           content: "je préfère",
                           picUrl:
-                            "http://localhost:8080/public/words/p1_m3_3.svg",
+                            "http://localhost:8080/public/words/p2_m3_3.svg",
+                          backgroundUrl:
+                            "http://localhost:8080/public/words/p2_m3_3_c3.svg",
                           value: 3,
                         },
                       ],
@@ -217,19 +268,25 @@ export default class App {
                         {
                           content: "bien cuite",
                           picUrl:
-                            "http://localhost:8080/public/words/p1_m5_1.svg",
+                            "http://localhost:8080/public/words/p2_m5_1.svg",
+                          backgroundUrl:
+                            "http://localhost:8080/public/words/p2_m5_1_c1.svg",
                           value: 5,
                         },
                         {
                           content: "croustillant",
                           picUrl:
-                            "http://localhost:8080/public/words/p1_m5_2.svg",
+                            "http://localhost:8080/public/words/p2_m5_2.svg",
+                          backgroundUrl:
+                            "http://localhost:8080/public/words/p2_m5_2_c2.svg",
                           value: 4,
                         },
                         {
                           content: "moelleux",
                           picUrl:
-                            "http://localhost:8080/public/words/p1_m5_3.svg",
+                            "http://localhost:8080/public/words/p2_m5_3.svg",
+                          backgroundUrl:
+                            "http://localhost:8080/public/words/p2_m5_3_c3.svg",
                           value: 3,
                         },
                       ],
@@ -237,19 +294,25 @@ export default class App {
                         {
                           content: "s'il vous plait",
                           picUrl:
-                            "http://localhost:8080/public/words/p1_m6_1.svg",
+                            "http://localhost:8080/public/words/p2_m6_1.svg",
+                          backgroundUrl:
+                            "http://localhost:8080/public/words/p2_m6_1_c1.svg",
                           value: 5,
                         },
                         {
                           content: "de rien",
                           picUrl:
-                            "http://localhost:8080/public/words/p1_m6_2.svg",
+                            "http://localhost:8080/public/words/p2_m6_2.svg",
+                          backgroundUrl:
+                            "http://localhost:8080/public/words/p2_m6_2_c2.svg",
                           value: 4,
                         },
                         {
                           content: "d'accord",
                           picUrl:
-                            "http://localhost:8080/public/words/p1_m6_3.svg",
+                            "http://localhost:8080/public/words/p2_m6_3.svg",
+                          backgroundUrl:
+                            "http://localhost:8080/public/words/p2_m6_3_c3.svg",
                           value: 3,
                         },
                       ],
@@ -295,13 +358,7 @@ export default class App {
         this.getPage();
       });
     }
-
-    this.game = new Game(this.router);
-    this.game.init({
-      data: this.app,
-      gameStep: this.gameStep,
-      levelStep: this.levelStep,
-    });
+    this.game = new Game(this.router, this.gui);
   }
   addRoutes(obj) {
     let nodes = [
@@ -404,6 +461,13 @@ export default class App {
     const $page = this.$app.querySelector(`.${page}`);
     const $button = $page.querySelector("button");
     $button.addEventListener("click", () => {
+      this.game && this.game.reset();
+
+      this.game.init({
+        data: this.app,
+        gameStep: this.gameStep,
+        levelStep: this.levelStep,
+      });
       this.router.navigate(`/games/${this.gameStep}/begining`);
     });
   }
@@ -426,7 +490,7 @@ export default class App {
 
   getPageGameLevel(page) {
     const $page = this.$app.querySelector(`.${page}`);
-    console.log(this.levelStep);
+    console.log("gamelvl", this.game.sentences);
 
     this.game.updateStep(this.gameStep, this.levelStep);
     this.game.setUpContainer();
