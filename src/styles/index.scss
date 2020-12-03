@@ -1,7 +1,7 @@
 $body-color: slateblue;
 
 // Import Reset
-@import './reset.scss';
+@import "./reset.scss";
 
 body {
   min-height: 100vh;
@@ -26,6 +26,16 @@ body {
     top: 0;
     left: 0;
     cursor: pointer;
+
+    &_relativeContainer {
+      position: relative;
+    }
+
+    &_background {
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
   }
 }
 

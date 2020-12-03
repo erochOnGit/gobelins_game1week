@@ -79,9 +79,13 @@ class Game {
     for (let i = 0; i < this.bubbleCount; i++) {
       let currentWord = currentWordList[i % currentWordList.length];
       let wordHTML = currentWord.picUrl
-        ? `<img id="${currentWord.content + i}" src="${
-            currentWord.picUrl
-          }" class="bubble" data-position=0,0 data-direction=${Math.random()},${Math.random()}>`
+        ? `<div class="bubble" data-position=0,0 data-direction=${Math.random()},${Math.random()} id="${
+            currentWord.content + i
+          }">
+            <div class="bubble_relativeContainer">
+              ${currentWord.picUrl}
+            </div>
+          </div>`
         : `<div id="${
             currentWord.content + i
           }"  class="bubble" data-position=0,0 data-direction=${Math.random()},${Math.random()}>${
@@ -92,6 +96,7 @@ class Game {
       this.$scene.innerHTML = this.$scene.innerHTML + wordHTML;
     }
     let bubble = document.querySelectorAll(".bubble");
+    let svg = document.querySelectorAll(".bubble_relativeContainer svg");
     let handleclick = ({ wordListId, wordId }) => {
       return () => {
         currentSentence.addWord(wordListId, wordId);
@@ -122,14 +127,15 @@ class Game {
       };
     };
     for (let k = 0; k < bubble.length; k++) {
-      bubble[k].addEventListener(
-        "click",
-        handleclick({
-          wordListId: currentSentence.listIdWordsSentence.length,
-          wordId: k % currentWordList.length,
-        }).bind(this),
-        false
-      );
+      svg[k] &&
+        svg[k].addEventListener(
+          "click",
+          handleclick({
+            wordListId: currentSentence.listIdWordsSentence.length,
+            wordId: k % currentWordList.length,
+          }).bind(this),
+          false
+        );
     }
   }
 
