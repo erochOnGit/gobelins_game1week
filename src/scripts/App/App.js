@@ -508,7 +508,6 @@ export default class App {
     const $page = this.$app.querySelector(`.${page}`);
     // this.$bar = $page.querySelector(`.${page} .timer .container-bar .bar`);
     // this.$bar.style.width = "70%";
-    // console.log("gamelvl", this.game.sentences);
 
     this.timer && this.timer.init();
 

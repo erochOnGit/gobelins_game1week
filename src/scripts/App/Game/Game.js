@@ -6,10 +6,14 @@ class Game {
     this.sentences = [];
     this.step = 0;
     this.bubbles = [];
-    this.bubbleCount = 10;
     this.wordCount = 0;
     this.transitioning = false;
     this.gui = gui;
+    this.wordsTweeks = {
+      count: 10,
+    };
+    this.gui.add(this.wordsTweeks, "count");
+    this.bubbleCount = this.wordsTweeks.count || 10;
     this.guiItem = [];
   }
   init({ data, gameStep, levelStep, timer }) {
@@ -25,18 +29,16 @@ class Game {
       stce.init({ data: content[i] });
       this.sentences.push(stce);
     }
-    // console.log("INIT", this.sentences);
     this.obj = {
       size: 23,
       speed: 2,
     };
-
+    this.bubbleCount = this.wordsTweeks.count || 10;
     // String field
     this.guiItem.push(this.gui.add(this.obj, "speed"));
     this.guiItem.push(this.gui.add(this.obj, "size"));
   }
   reset() {
-    // console.log("RESET");
     // this.sentences = [];
     this.step = 0;
     this.bubbles = [];
@@ -49,7 +51,6 @@ class Game {
     this.levelStep = levelStep;
   }
   setUpContainer() {
-    // console.log(this.levelStep, this.sentences);
     this.$container = document.querySelector(
       `.games_${this.gameStep}_levels_${this.levelStep}`
     );
@@ -73,7 +74,6 @@ class Game {
     let currentSentence = this.sentences[this.levelStep];
     let currentWordList =
       currentSentence.words[currentSentence.listIdWordsSentence.length];
-    // console.log(this.obj);
     for (let i = 0; i < this.bubbleCount; i++) {
       let currentWord = currentWordList[i % currentWordList.length];
       let wordHTML = currentWord.picUrl
@@ -106,11 +106,9 @@ class Game {
               this.app.games[this.gameStep].levels.length - 1
             ) {
               this.timer.stop();
-              console.log(this.timer.getScore());
               this.router.navigate(`/games/${this.gameStep}/ending`);
             } else {
               this.timer.stop();
-              console.log(this.timer.getScore());
               // this.levelStep += 1;
               // this.router.navigate(`/games/${this.gameStep}/levels/${this.levelStep}`);
               this.router.navigate(`/games/${this.gameStep}/questionning`);
@@ -164,6 +162,7 @@ class Game {
       return;
     }
     let speed = this.obj.speed;
+    this.bubbleCount = this.wordsTweeks.count;
     let bubbles = document.querySelectorAll(".bubble");
     for (let i = 0; i < bubbles.length; i++) {
       let bubble = bubbles[i];
