@@ -452,19 +452,19 @@ export default class App {
   }
   getPageFinish(page) {
     const $page = this.$app.querySelector(`.${page}`);
+    const $time = $page.querySelector(".js-time");
+    if (this.timer.convertTime(this.timer.score.minutes) != "00") {
+      $time.innerHTML =
+        this.timer.convertTime(this.timer.score.minutes) +
+        " minutes et " +
+        this.timer.convertTime(this.timer.score.seconds) +
+        " secondes";
+    } else {
+      $time.innerHTML =
+        this.timer.convertTime(this.timer.score.seconds) + " secondes";
+    }
     const $button = $page.querySelector("button");
     let clickHandler = () => {
-      const $time = $page.querySelector(".js-time");
-      if (this.timer.convertTime(this.timer.score.minutes) != "00") {
-        $time.innerHTML =
-          this.timer.convertTime(this.timer.score.minutes) +
-          " minutes et " +
-          this.timer.convertTime(this.timer.score.seconds) +
-          " secondes";
-      } else {
-        $time.innerHTML =
-          this.timer.convertTime(this.timer.score.seconds) + " secondes";
-      }
       this.gameStep = 0;
       this.levelStep = 0;
       this.router.navigate(`/start`);
