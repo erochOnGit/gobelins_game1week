@@ -12,10 +12,11 @@ class Game {
     this.gui = gui;
     this.guiItem = [];
   }
-  init({ data, gameStep, levelStep }) {
+  init({ data, gameStep, levelStep, timer }) {
     this.app = data;
     this.gameStep = gameStep;
     this.levelStep = levelStep;
+    this.timer = timer;
     const content = data.games[this.gameStep].levels.map((lvl) => {
       return lvl.content.sentences[0];
     });
@@ -24,7 +25,7 @@ class Game {
       stce.init({ data: content[i] });
       this.sentences.push(stce);
     }
-    console.log("INIT", this.sentences);
+    // console.log("INIT", this.sentences);
     this.obj = {
       size: 23,
       speed: 2,
@@ -35,8 +36,8 @@ class Game {
     this.guiItem.push(this.gui.add(this.obj, "size"));
   }
   reset() {
-    console.log("RESET");
-    this.sentences = [];
+    // console.log("RESET");
+    // this.sentences = [];
     this.step = 0;
     this.bubbles = [];
     this.bubbleCount = 10;
@@ -48,7 +49,7 @@ class Game {
     this.levelStep = levelStep;
   }
   setUpContainer() {
-    console.log(this.levelStep, this.sentences);
+    // console.log(this.levelStep, this.sentences);
     this.$container = document.querySelector(
       `.games_${this.gameStep}_levels_${this.levelStep}`
     );
@@ -72,7 +73,7 @@ class Game {
     let currentSentence = this.sentences[this.levelStep];
     let currentWordList =
       currentSentence.words[currentSentence.listIdWordsSentence.length];
-    console.log(this.obj);
+    // console.log(this.obj);
     for (let i = 0; i < this.bubbleCount; i++) {
       let currentWord = currentWordList[i % currentWordList.length];
       let wordHTML = currentWord.picUrl
@@ -104,13 +105,18 @@ class Game {
               this.levelStep ==
               this.app.games[this.gameStep].levels.length - 1
             ) {
+              this.timer.stop();
+              console.log(this.timer.getScore());
               this.router.navigate(`/games/${this.gameStep}/ending`);
             } else {
+              this.timer.stop();
+              console.log(this.timer.getScore());
               // this.levelStep += 1;
               // this.router.navigate(`/games/${this.gameStep}/levels/${this.levelStep}`);
               this.router.navigate(`/games/${this.gameStep}/questionning`);
             }
           } else {
+            this.timer.stop();
             this.router.navigate(`/games/${this.gameStep}/repeating`);
           }
 

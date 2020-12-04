@@ -27,11 +27,7 @@ export default class App {
     this.app = {
       start: {
         content: {
-          toto: "toto",
-          message: {
-            titi: "titi",
-            tutu: "tutu",
-          },
+          titleURL: "../public/images/titre.svg",
         },
       },
       games: [
@@ -288,6 +284,11 @@ export default class App {
               },
             },
           ],
+          timing: {
+            content: {
+              videoURL: "../public/videos/motion-retry.mp4",
+            },
+          },
           questionning: {
             content: {
               videoURL: "../public/videos/motion-suite.mp4",
@@ -325,6 +326,7 @@ export default class App {
       });
     }
     this.timer = new Timer();
+    this.score = 0;
     this.game = new Game(this.router, this.gui);
   }
   addRoutes(obj) {
@@ -413,6 +415,9 @@ export default class App {
       case "games_levels":
         this.getPageGameLevel(nameCurrentPage);
         break;
+      case "games_timing":
+        this.getPageGameTiming(nameCurrentPage);
+        break;
       case "games_questionning":
         this.getPageGameQuestionning(nameCurrentPage);
         break;
@@ -428,24 +433,40 @@ export default class App {
     const $page = this.$app.querySelector(`.${page}`);
     const $button = $page.querySelector("button");
     //TODO remove event at the end of the click
-    let clickHandler = () => {
-      this.game && this.game.reset();
+    $button.addEventListener("click", () => {
+      if (this.game) {
+        this.game.reset();
+        this.game.sentences = [];
+      }
+      this.timer.score = this.timer && { minutes: 0, seconds: 0 };
 
       this.game.init({
         data: this.app,
         gameStep: this.gameStep,
         levelStep: this.levelStep,
+        timer: this.timer,
       });
       this.router.navigate(`/games/${this.gameStep}/begining`);
       $button.removeEventListener("click", clickHandler);
-    };
-    $button.addEventListener("click", clickHandler, false);
+    });
   }
   getPageFinish(page) {
     const $page = this.$app.querySelector(`.${page}`);
     const $button = $page.querySelector("button");
     let clickHandler = () => {
+      const $time = $page.querySelector(".js-time");
+      if (this.timer.convertTime(this.timer.score.minutes) != "00") {
+        $time.innerHTML =
+          this.timer.convertTime(this.timer.score.minutes) +
+          " minutes et " +
+          this.timer.convertTime(this.timer.score.seconds) +
+          " secondes";
+      } else {
+        $time.innerHTML =
+          this.timer.convertTime(this.timer.score.seconds) + " secondes";
+      }
       this.gameStep = 0;
+      this.levelStep = 0;
       this.router.navigate(`/start`);
       $button.removeEventListener("click", clickHandler);
     };
@@ -464,20 +485,44 @@ export default class App {
 
   getPageGameLevel(page) {
     const $page = this.$app.querySelector(`.${page}`);
-    console.log("gamelvl", this.game.sentences);
+    // this.$bar = $page.querySelector(`.${page} .timer .container-bar .bar`);
+    // this.$bar.style.width = "70%";
+    // console.log("gamelvl", this.game.sentences);
+
+    this.timer && this.timer.init();
 
     this.game.updateStep(this.gameStep, this.levelStep);
     this.game.setUpContainer();
     this.game.generateBubbles();
 
     const render = () => {
+      if (this.timer.controlIsFinish()) {
+        if (!this.timer.isStop) {
+          this.router.navigate(`/games/${this.gameStep}/timing`);
+          cancelAnimationFrame(render);
+          this.game.sentences[this.levelStep].listIdWordsSentence = [];
+          this.game.sentences[this.levelStep].sizeCurrentSentence = 0;
+          this.game.reset();
+          this.game.$game.remove();
+        }
+      } else {
+        const $bar = $page.querySelector(`.${page} .timer .container-bar .bar`);
+        $bar.style.width = this.timer.getTime().distance + "%";
+        requestAnimationFrame(render);
+      }
       this.game.update();
-      requestAnimationFrame(render);
     };
 
     requestAnimationFrame(render);
   }
-
+  getPageGameTiming(page) {
+    const $page = this.$app.querySelector(`.${page}`);
+    const $video = $page.querySelector("video");
+    $video.play();
+    $video.addEventListener("ended", () => {
+      this.router.navigate(`/games/${this.gameStep}/levels/${this.levelStep}`);
+    });
+  }
   getPageGameQuestionning(page) {
     const $page = this.$app.querySelector(`.${page}`);
     const $video = $page.querySelector("video");
@@ -566,33 +611,53 @@ export default class App {
         this.generatePageGame(page);
         break;
       case "games_begining":
-        this.generatePageGameBegining(page);
+      case "games_timing":
+      case "games_questionning":
+      case "games_repeating":
+      case "games_ending":
+        this.generatePageGameVideo(page);
         break;
       case "games_levels":
         this.generatePageGameLevel(page);
-        break;
-      case "games_questionning":
-        this.generatePageGameQuestionning(page);
-        break;
-      case "games_repeating":
-        this.generatePageGameRepeating(page);
-        break;
-      case "games_ending":
-        this.generatePageGameEnding(page);
         break;
     }
   }
   generatePageStart(page) {
     this.$app.innerHTML += `
             <div class="is-hide page ${page.name}">
-                <button>Start</button>
+                <div class="container-page">
+                    <div class="container-img">
+                        <img src="${page.content.titleURL}" alt=""/>
+                    </div>
+                    <ol class="container-list">
+                        <li>
+                            <p><span class="style-btn-1">1</span>Écoutez les instructions contenues dans la vidéo</p>
+                        </li>
+                        <li>
+                            <p><span class="style-btn-1">2</span>Mémorisez-les attentivement</p>
+                        </li>
+                        <li>
+                            <p><span class="style-btn-1">3</span>Choisissez les mots justes pour passer votre commande</p>
+                        </li>
+                    </ol>
+                    <div class="container-btn">
+                        <button class="style-btn-2">Commencer</button>
+                    </div>
+                </div>
             </div>
         `;
   }
   generatePageFinish(page) {
     this.$app.innerHTML += `
             <div class="is-hide page ${page.name}">
-            <button>Retry</button>
+                <div class="container-page">
+                    <div class="container-text">
+                        <p>Bravo ! Tu as réussis à passer commande en <span class="style-bold"><span class="js-time"></span></span></p>
+                    </div>
+                    <div class="container-btn">
+                        <button class="style-btn-2">Améliorer mon temps</button>
+                    </div>
+                </div>
             </div>
         `;
   }
@@ -610,7 +675,7 @@ export default class App {
             </div>
         `;
   }
-  generatePageGameBegining(page) {
+  generatePageGameVideo(page) {
     const $games = this.$games.querySelectorAll(".games");
     for (let i = 0; i < $games.length; i++) {
       const $game = $games[i];
@@ -646,57 +711,10 @@ export default class App {
 
         this.$levels[i].innerHTML += `
                     <div class="is-hide page levels ${page.name}">
-                        <p>Page ${page.name}</p>
-                    </div>
-                `;
-      }
-    }
-  }
-  generatePageGameQuestionning(page) {
-    const $games = this.$games.querySelectorAll(".games");
-    for (let i = 0; i < $games.length; i++) {
-      const $game = $games[i];
-      if (page.name.match($game.className.split(" ")[1])) {
-        $game.innerHTML += `
-                    <div class="is-hide page ${page.name}">
-                        <div class="container-video">
-                            <video>
-                                <source src=${page.content.videoURL} type="video/mp4">
-                            </video>
-                        </div>
-                    </div>
-                `;
-      }
-    }
-  }
-  generatePageGameRepeating(page) {
-    const $games = this.$games.querySelectorAll(".games");
-    for (let i = 0; i < $games.length; i++) {
-      const $game = $games[i];
-      if (page.name.match($game.className.split(" ")[1])) {
-        $game.innerHTML += `
-                    <div class="is-hide page ${page.name}">
-                        <div class="container-video">
-                            <video>
-                                <source src=${page.content.videoURL} type="video/mp4">
-                            </video>
-                        </div>
-                    </div>
-                `;
-      }
-    }
-  }
-  generatePageGameEnding(page) {
-    const $games = this.$games.querySelectorAll(".games");
-    for (let i = 0; i < $games.length; i++) {
-      const $game = $games[i];
-      if (page.name.match($game.className.split(" ")[1])) {
-        $game.innerHTML += `
-                    <div class="is-hide page ${page.name}">
-                        <div class="container-video">
-                            <video>
-                                <source src=${page.content.videoURL} type="video/mp4">
-                            </video>
+                        <div class="timer">
+                            <div class="container-bar">
+                                <div class="bar"></div>
+                            </div>
                         </div>
                     </div>
                 `;
