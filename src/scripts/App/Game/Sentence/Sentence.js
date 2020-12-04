@@ -7,7 +7,7 @@ class Sentence {
     this.sizeMaxSentence = 6;
     this.sizeCurrentSentence = 0;
     this.listIdWordsSentence = [];
-    this.scoreSuccess = 2;
+    this.scoreSuccess = 5;
     this.isSuccess = false;
     this.isFinish = false;
   }

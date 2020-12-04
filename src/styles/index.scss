@@ -233,3 +233,25 @@ video {
     }
   }
 }
+
+.games {
+  .close {
+    position: absolute;
+    top: 25px;
+    right: 25px;
+    z-index: 1;
+    width: 26px;
+    height: 26px;
+    cursor: pointer;
+    img {
+      pointer-events: none;
+    }
+  }
+}
+
+.start ~ .gamesList .games .close {
+  display: none;
+}
+.start.is-hide ~ .gamesList .games .close {
+  display: block;
+}
