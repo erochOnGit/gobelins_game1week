@@ -19,12 +19,17 @@ button {
 #game {
   display: flex;
   flex-direction: column;
+  justify-content: flex-end;
   height: 100vh;
 }
 
 #scene {
-  flex: 2;
-  background: rgb(112, 163, 221);
+  background: radial-gradient(#fff, #fca84b);
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
 
   .bubble {
     position: absolute;
@@ -32,6 +37,7 @@ button {
     top: 0;
     left: 0;
     cursor: pointer;
+    z-index: 2;
 
     &_relativeContainer {
       position: relative;
@@ -46,15 +52,22 @@ button {
 }
 
 #sentence {
-  background: #fffdfa;
-  flex: 0.5;
+  background: #fdcbb7;
   display: flex;
   flex-direction: row;
-  height: 6.5vh;
+  height: 120px;
+  width: 80vw;
+  margin: 5vh auto;
+  z-index: 2;
+  border-radius: 10px;
+  align-items: center;
+  justify-content: space-between;
 
   .selectedWord {
-    height: 250px;
-    width: 20vw;
+    height: 100px;
+    width: 15vw;
+    border-bottom: 2px solid #fc7251;
+    opacity: 25%;
   }
 }
 
@@ -84,6 +97,7 @@ video {
   position: absolute;
   top: 25px;
   left: 25px;
+  z-index: 1;
 
   .container-bar {
     display: block;
@@ -116,6 +130,7 @@ video {
   max-width: 1420px;
   margin: 0 auto;
   padding: 25px 10px;
+
   & > *:not(:last-child) {
     margin-bottom: 1.5% !important;
   }
@@ -142,13 +157,13 @@ video {
   }
 }
 
-.container-text {
-  p {
-    &:not(:last-child) {
-      margin-bottom: 1.25%;
-    }
-  }
-}
+// .container-text {
+//   p {
+//     &:not(:last-child) {
+//       margin-bottom: 1.25%;
+//     }
+//   }
+// }
 
 // Styles
 

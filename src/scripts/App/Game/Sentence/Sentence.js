@@ -26,6 +26,11 @@ class Sentence {
   }
   updateContainer(pageRoute) {
     this.$sentence = document.querySelector(pageRoute + " #sentence");
+    let wordHTML = "";
+    this.words.forEach(() => {
+      wordHTML = wordHTML + `<div class="selectedWord"></div>`;
+    });
+    this.$sentence.innerHTML = this.$sentence.innerHTML + wordHTML;
   }
   addWord(wordListId, wordId) {
     this.listIdWordsSentence.push(wordId);
@@ -62,4 +67,4 @@ class Sentence {
   }
 }
 
-module.exports = Sentence;
+export default Sentence;

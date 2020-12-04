@@ -1,4 +1,4 @@
-const Sentence = require("./Sentence/Sentence");
+import Sentence from "./Sentence/Sentence";
 
 class Game {
   constructor(router, gui) {
