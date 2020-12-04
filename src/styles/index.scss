@@ -6,13 +6,13 @@ $color-2: #fdcbb7;
 
 body {
   min-height: 100vh;
-  font-family: 'Raleway', sans-serif;
+  font-family: "Raleway", sans-serif;
   font-size: 26px;
   margin: 0;
 }
 
 button {
-  font-family: 'Raleway', sans-serif;
+  font-family: "Raleway", sans-serif;
   font-size: 26px;
 }
 
@@ -65,9 +65,27 @@ button {
 
   .selectedWord {
     height: 100px;
-    width: 15vw;
-    border-bottom: 2px solid #fc7251;
-    opacity: 25%;
+    border-bottom: 2px solid #fc73513d;
+
+    &.w7 {
+      width: 5vw;
+    }
+
+    &.w6 {
+      width: 10vw;
+    }
+
+    &.w5 {
+      width: 15vw;
+    }
+
+    &.w4 {
+      width: 20vw;
+    }
+
+    &.w3 {
+      width: 25vw;
+    }
   }
 }
 

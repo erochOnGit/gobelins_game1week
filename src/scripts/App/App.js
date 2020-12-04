@@ -453,7 +453,7 @@ export default class App {
     const $page = this.$app.querySelector(`.${page}`);
     const $button = $page.querySelector("button");
     //TODO remove event at the end of the click
-    $button.addEventListener("click", () => {
+    let clickHandler = () => {
       if (this.game) {
         this.game.reset();
         this.game.sentences = [];
@@ -468,7 +468,8 @@ export default class App {
       });
       this.router.navigate(`/games/${this.gameStep}/begining`);
       $button.removeEventListener("click", clickHandler);
-    });
+    };
+    $button.addEventListener("click", clickHandler, false);
   }
   getPageFinish(page) {
     const $page = this.$app.querySelector(`.${page}`);

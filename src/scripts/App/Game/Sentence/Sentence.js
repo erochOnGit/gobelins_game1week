@@ -28,7 +28,8 @@ class Sentence {
     this.$sentence = document.querySelector(pageRoute + " #sentence");
     let wordHTML = "";
     this.words.forEach(() => {
-      wordHTML = wordHTML + `<div class="selectedWord"></div>`;
+      wordHTML =
+        wordHTML + `<div class="selectedWord w${this.words.length}"></div>`;
     });
     this.$sentence.innerHTML = this.$sentence.innerHTML + wordHTML;
   }
@@ -47,8 +48,8 @@ class Sentence {
       const wordText = this.words[wordListId][wordId].content;
       wordHTML = `<p>${wordText}</p>`;
     }
-
-    this.$sentence.innerHTML = this.$sentence.innerHTML + wordHTML;
+    console.log(this.$sentence.children, wordListId);
+    this.$sentence.children[wordListId].innerHTML = wordHTML;
   }
   controlIsFinish() {
     if (this.sizeCurrentSentence >= this.sizeMaxSentence) {
