@@ -10,7 +10,7 @@ class Game {
     this.transitioning = false;
     this.gui = gui;
     this.wordsTweeks = {
-      count: 10,
+      count: 25,
     };
     this.gui.add(this.wordsTweeks, "count");
     this.bubbleCount = this.wordsTweeks.count || 10;
@@ -31,7 +31,7 @@ class Game {
     }
     this.obj = {
       size: 23,
-      speed: 2,
+      speed: 8,
       timeMaxMinutes: this.timer.limitTime.minutes,
       timeMaxSeconds: this.timer.limitTime.seconds,
     };
@@ -110,9 +110,11 @@ class Game {
               this.app.games[this.gameStep].levels.length - 1
             ) {
               this.timer.stop();
+              this.timer.getScore();
               this.router.navigate(`/games/${this.gameStep}/ending`);
             } else {
               this.timer.stop();
+              this.timer.getScore();
               // this.levelStep += 1;
               // this.router.navigate(`/games/${this.gameStep}/levels/${this.levelStep}`);
               this.router.navigate(`/games/${this.gameStep}/questionning`);

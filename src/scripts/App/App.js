@@ -687,7 +687,7 @@ export default class App {
             <div class="is-hide page ${page.name}">
                 <div class="container-page">
                     <div class="container-text">
-                        <p>Bravo ! Tu as réussis à passer commande en <span class="style-bold"><span class="js-time"></span></span></p>
+                        <p>Bravo ! Tu as réussis à passer commande en </br><span class="style-bold"><span class="js-time"></span></span></p>
                     </div>
                     <div class="container-btn">
                         <button class="style-btn-2">Améliorer mon temps</button>
