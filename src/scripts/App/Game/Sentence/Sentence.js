@@ -37,7 +37,7 @@ class Sentence {
     let wordHTML = null;
     if (this.words[wordListId][wordId].picUrl) {
       const wordUrl = this.words[wordListId][wordId].picUrl;
-      wordHTML = `<img src="${wordUrl}"/>`;
+      wordHTML = `<div class="selectedWord">${wordUrl}</div>`;
     } else {
       const wordText = this.words[wordListId][wordId].content;
       wordHTML = `<p>${wordText}</p>`;

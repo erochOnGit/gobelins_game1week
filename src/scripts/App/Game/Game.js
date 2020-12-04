@@ -42,9 +42,6 @@ class Game {
     this.bubbleCount = 10;
     this.wordCount = 0;
     this.transitioning = false;
-    // this.guiItem.forEach((item) => {
-    //   this.gui.remove(item);
-    // });
   }
   updateStep(gameStep, levelStep) {
     this.gameStep = gameStep;

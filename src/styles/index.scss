@@ -40,12 +40,15 @@ body {
 }
 
 #sentence {
-  background: rgb(106, 202, 106);
+  background: #fffdfa;
   flex: 0.5;
+  display: flex;
+  flex-direction: row;
+  height: 6.5vh;
 
-  img {
-    height: 200px;
-    width: 10vw;
+  .selectedWord {
+    height: 250px;
+    width: 20vw;
   }
 }
 
