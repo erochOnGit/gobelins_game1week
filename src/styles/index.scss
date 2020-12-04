@@ -24,12 +24,12 @@ button {
 }
 
 #scene {
-  background: radial-gradient(#ffffff, #fca84b);
+  background: radial-gradient(#fff, #fca84b);
   position: absolute;
   top: 0;
   left: 0;
   height: 100vh;
-  width: 100vw; 
+  width: 100vw;
 
   .bubble {
     position: absolute;
@@ -61,10 +61,13 @@ button {
   z-index: 2;
   border-radius: 10px;
   align-items: center;
+  justify-content: space-between;
 
   .selectedWord {
     height: 100px;
     width: 15vw;
+    border-bottom: 2px solid #fc7251;
+    opacity: 25%;
   }
 }
 
