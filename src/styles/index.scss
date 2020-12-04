@@ -7,13 +7,13 @@ $color-2: #fdcbb7;
 body {
   min-height: 100vh;
   font-family: 'Raleway', sans-serif;
-  font-size: 36px;
+  font-size: 26px;
   margin: 0;
 }
 
 button {
   font-family: 'Raleway', sans-serif;
-  font-size: 36px;
+  font-size: 26px;
 }
 
 #game {
@@ -105,11 +105,11 @@ video {
   align-items: center;
   justify-content: center;
   width: calc(100% - 20px);
-  height: calc(100% - 20px);
-  min-height: calc(100vh - 20px);
+  height: calc(100% - 50px);
+  min-height: calc(100vh - 50px);
   max-width: 1420px;
   margin: 0 auto;
-  padding: 10px;
+  padding: 25px 10px;
   & > *:not(:last-child) {
     margin-bottom: 1.5% !important;
   }
@@ -151,8 +151,8 @@ video {
 
 .style-btn-1 {
   display: inline-block;
-  min-width: 36px;
-  min-height: 36px;
+  min-width: 26px;
+  min-height: 26px;
   padding: 10px;
   color: $color-1;
   border: $color-1 solid 3px;
@@ -164,8 +164,8 @@ video {
 
 .style-btn-2 {
   display: inline-block;
-  min-width: 494px;
-  min-height: 106px;
+  min-width: 394px;
+  min-height: 96px;
   padding: 10px;
   background-color: $color-1;
   color: white;
@@ -189,7 +189,7 @@ video {
   .container-list {
     width: calc(100% - 50px);
     height: calc(100% - 50px);
-    max-width: 1021.77px;
+    max-width: 750px;
     margin: 0 auto;
     padding: 25px;
   }
