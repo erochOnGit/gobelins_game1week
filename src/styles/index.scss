@@ -130,6 +130,7 @@ video {
   max-width: 1420px;
   margin: 0 auto;
   padding: 25px 10px;
+
   & > *:not(:last-child) {
     margin-bottom: 1.5% !important;
   }
