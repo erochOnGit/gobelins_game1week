@@ -1,4 +1,4 @@
-$color-1: #FC7251;
+$color-1: #fc7251;
 $color-2: #fdcbb7;
 
 // Import Reset
@@ -6,13 +6,13 @@ $color-2: #fdcbb7;
 
 body {
   min-height: 100vh;
-  font-family: 'Raleway', sans-serif;
+  font-family: "Raleway", sans-serif;
   font-size: 36px;
   margin: 0;
 }
 
 button {
-  font-family: 'Raleway', sans-serif;
+  font-family: "Raleway", sans-serif;
   font-size: 36px;
 }
 
@@ -46,12 +46,15 @@ button {
 }
 
 #sentence {
-  background: rgb(106, 202, 106);
+  background: #fffdfa;
   flex: 0.5;
+  display: flex;
+  flex-direction: row;
+  height: 6.5vh;
 
-  img {
-    height: 200px;
-    width: 10vw;
+  .selectedWord {
+    height: 250px;
+    width: 20vw;
   }
 }
 
@@ -79,13 +82,16 @@ video {
 
 .timer {
   position: absolute;
-  top: 25px; left: 25px;
+  top: 25px;
+  left: 25px;
+
   .container-bar {
     display: block;
     width: 300px;
     height: 10px;
     background-color: $color-2;
     border-radius: 25px;
+
     .bar {
       display: block;
       width: 0;
@@ -110,6 +116,7 @@ video {
   max-width: 1420px;
   margin: 0 auto;
   padding: 10px;
+
   & > *:not(:last-child) {
     margin-bottom: 1.5% !important;
   }
@@ -127,6 +134,7 @@ video {
     &:not(:last-child) {
       margin-bottom: 1.25%;
     }
+
     p {
       span {
         margin-right: 10px;
@@ -186,6 +194,7 @@ video {
     margin: 0 auto;
     padding: 25px;
   }
+
   .container-list {
     width: calc(100% - 50px);
     height: calc(100% - 50px);
@@ -202,6 +211,7 @@ video {
     max-width: 1021.77px;
     margin: 0 auto;
     padding: 25px;
+
     p {
       color: $color-1;
       font-size: 48px;
