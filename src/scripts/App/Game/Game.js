@@ -29,11 +29,15 @@ class Game {
     this.obj = {
       size: 23,
       speed: 2,
+      timeMaxMinutes: this.timer.limitTime.minutes,
+      timeMaxSeconds: this.timer.limitTime.seconds,
     };
 
     // String field
     this.guiItem.push(this.gui.add(this.obj, "speed"));
     this.guiItem.push(this.gui.add(this.obj, "size"));
+    this.guiItem.push(this.gui.add(this.obj, "timeMaxMinutes"));
+    this.guiItem.push(this.gui.add(this.obj, "timeMaxSeconds"));
   }
   reset() {
     // console.log("RESET");
@@ -162,6 +166,11 @@ class Game {
   update() {
     if (this.transitioning) {
       return;
+    }
+    if (this.timer.limitTime.minutes !== this.obj.timeMaxMinutes || this.timer.limitTime.seconds !== this.obj.timeMaxSeconds) {
+      this.timer.limitTime.minutes = this.obj.timeMaxMinutes;
+      this.timer.limitTime.seconds = this.obj.timeMaxSeconds;
+      this.timer.reset();
     }
     let speed = this.obj.speed;
     let bubbles = document.querySelectorAll(".bubble");
