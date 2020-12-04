@@ -24,7 +24,7 @@ button {
 }
 
 #scene {
-  background: radial-gradient(#fff, #FEE0C0);
+  background: radial-gradient(#fff, #fee0c0);
   position: absolute;
   top: 0;
   left: 0;
@@ -52,7 +52,7 @@ button {
 }
 
 #sentence {
-  background: #FFF;
+  background: #fff;
   display: flex;
   flex-direction: row;
   height: 120px;
@@ -169,7 +169,7 @@ video {
 .container-list {
   li {
     &:not(:last-child) {
-      margin-bottom: .5%;
+      margin-bottom: 0.5%;
     }
 
     p {
@@ -267,6 +267,7 @@ video {
     width: 26px;
     height: 26px;
     cursor: pointer;
+
     img {
       pointer-events: none;
     }
@@ -276,6 +277,7 @@ video {
 .start ~ .gamesList .games .close {
   display: none;
 }
+
 .start.is-hide ~ .gamesList .games .close {
   display: block;
 }
