@@ -2,7 +2,7 @@ export default class Timer {
   constructor() {
     this.limitTime = {
       minutes: 0,
-      seconds: 30
+      seconds: 40
     };
     this.score = {
         minutes: 0,

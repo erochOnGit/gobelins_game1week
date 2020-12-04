@@ -32,6 +32,9 @@ export default class App {
       },
       games: [
         {
+          content: {
+              iconURL: "../public/images/home_v2.svg",
+          },
           begining: {
             content: {
               videoURL: "../public/videos/motion-introduction.mp4",
@@ -334,6 +337,17 @@ export default class App {
     this.paths = this.getRoutes(this.app);
     this.generatePages(this.app);
 
+    const $buttons = document.querySelectorAll(".close");
+    $buttons.forEach($button => {
+        let clickHandler = () => {
+          this.gameStep = 0;
+          this.levelStep = 0;
+          this.router.navigate(`/start`);
+          $button.removeEventListener("click", clickHandler);
+        };
+        $button.addEventListener("click", clickHandler, false);
+    });
+
     this.router = new Router({
       mode: "hash",
       root: "/",
@@ -348,6 +362,7 @@ export default class App {
     this.timer = new Timer();
     this.score = 0;
     this.game = new Game(this.router, this.gui);
+
   }
   addRoutes(obj) {
     let nodes = [
@@ -672,7 +687,7 @@ export default class App {
             <div class="is-hide page ${page.name}">
                 <div class="container-page">
                     <div class="container-text">
-                        <p>Bravo ! Tu as réussis à passer commande en <span class="style-bold"><span class="js-time"></span></span></p>
+                        <p>Bravo ! Tu as réussis à passer commande en </br><span class="style-bold"><span class="js-time"></span></span></p>
                     </div>
                     <div class="container-btn">
                         <button class="style-btn-2">Améliorer mon temps</button>
@@ -692,6 +707,9 @@ export default class App {
 
     this.$games.innerHTML += `
             <div class="games ${page.name}">
+                <div class="container-img close style-btn-1">
+                    <img src="${page.content.iconURL}" alt=""/>
+                </div>
             </div>
         `;
   }
