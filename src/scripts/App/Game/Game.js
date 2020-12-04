@@ -82,8 +82,8 @@ class Game {
       let currentWord = currentWordList[i % currentWordList.length];
 
       let wordHTML = currentWord.picUrl
-        ? `<div class="bubble" data-position=${window.innerWidth / 2},${
-            window.innerHeight / 2
+        ? `<div class="bubble" data-position=${(window.innerWidth / 2) - (200 / 2)},${
+            (window.innerHeight / 2) - (200 / 2)
           } data-direction=${Math.random() - 0.5},${Math.random() - 0.5} id="${
             currentWord.content + i
           }">
@@ -92,9 +92,9 @@ class Game {
             </div>
           </div>`
         : `<div id="${currentWord.content + i}"  class="bubble" data-position=${
-            window.innerWidth / 2
+            (window.innerWidth / 2) - (200 / 2)
           },${
-            window.innerHeight / 2
+            (window.innerHeight / 2) - (200 / 2)
           }  data-direction=${Math.random()},${Math.random()}>${
             currentWord.content
           }</div>`;
