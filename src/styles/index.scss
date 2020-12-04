@@ -64,8 +64,13 @@ button {
   justify-content: space-between;
 
   .selectedWord {
-    height: 100px;
+    height: 50px;
+    padding: 25px 0;
     border-bottom: 2px solid #fc73513d;
+
+    &.active {
+      border-bottom: 2px solid #fc7351;
+    }
 
     &.w7 {
       width: 5vw;

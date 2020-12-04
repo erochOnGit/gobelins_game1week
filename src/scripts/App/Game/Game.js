@@ -80,17 +80,22 @@ class Game {
       currentSentence.words[currentSentence.listIdWordsSentence.length];
     for (let i = 0; i < this.bubbleCount; i++) {
       let currentWord = currentWordList[i % currentWordList.length];
+
       let wordHTML = currentWord.picUrl
-        ? `<div class="bubble" data-position=0,0 data-direction=${Math.random()},${Math.random()} id="${
+        ? `<div class="bubble" data-position=${window.innerWidth / 2},${
+            window.innerHeight / 2
+          } data-direction=${Math.random() - 0.5},${Math.random() - 0.5} id="${
             currentWord.content + i
           }">
             <div class="bubble_relativeContainer">
               ${currentWord.picUrl}
             </div>
           </div>`
-        : `<div id="${
-            currentWord.content + i
-          }"  class="bubble" data-position=0,0 data-direction=${Math.random()},${Math.random()}>${
+        : `<div id="${currentWord.content + i}"  class="bubble" data-position=${
+            window.innerWidth / 2
+          },${
+            window.innerHeight / 2
+          }  data-direction=${Math.random()},${Math.random()}>${
             currentWord.content
           }</div>`;
 
@@ -165,7 +170,10 @@ class Game {
     if (this.transitioning) {
       return;
     }
-    if (this.timer.limitTime.minutes !== this.obj.timeMaxMinutes || this.timer.limitTime.seconds !== this.obj.timeMaxSeconds) {
+    if (
+      this.timer.limitTime.minutes !== this.obj.timeMaxMinutes ||
+      this.timer.limitTime.seconds !== this.obj.timeMaxSeconds
+    ) {
       this.timer.limitTime.minutes = this.obj.timeMaxMinutes;
       this.timer.limitTime.seconds = this.obj.timeMaxSeconds;
       this.timer.reset();

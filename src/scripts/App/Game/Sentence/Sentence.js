@@ -27,9 +27,16 @@ class Sentence {
   updateContainer(pageRoute) {
     this.$sentence = document.querySelector(pageRoute + " #sentence");
     let wordHTML = "";
-    this.words.forEach(() => {
+    let active = "";
+    this.words.forEach((w, index) => {
+      if (index === 0) {
+        active = "active";
+      } else {
+        active = "";
+      }
       wordHTML =
-        wordHTML + `<div class="selectedWord w${this.words.length}"></div>`;
+        wordHTML +
+        `<div class="selectedWord w${this.words.length} ${active}"></div>`;
     });
     this.$sentence.innerHTML = this.$sentence.innerHTML + wordHTML;
   }
@@ -43,13 +50,15 @@ class Sentence {
     let wordHTML = null;
     if (this.words[wordListId][wordId].picUrl) {
       const wordUrl = this.words[wordListId][wordId].picUrl;
-      wordHTML = `<div class="selectedWord">${wordUrl}</div>`;
+      wordHTML = `${wordUrl}`;
     } else {
       const wordText = this.words[wordListId][wordId].content;
       wordHTML = `<p>${wordText}</p>`;
     }
-    console.log(this.$sentence.children, wordListId);
     this.$sentence.children[wordListId].innerHTML = wordHTML;
+    this.$sentence.children[wordListId].classList.remove("active");
+    this.$sentence.children[wordListId + 1] &&
+      this.$sentence.children[wordListId + 1].classList.add("active");
   }
   controlIsFinish() {
     if (this.sizeCurrentSentence >= this.sizeMaxSentence) {
