@@ -2,7 +2,11 @@ export default class Timer {
   constructor() {
     this.limitTime = {
       minutes: 0,
-      seconds: 10,
+      seconds: 30
+    };
+    this.score = {
+        minutes: 0,
+        seconds: 0
     };
   }
   getTime() {
@@ -10,15 +14,23 @@ export default class Timer {
     const distanceTime = this.limitTime.value - currentTime;
     this.time = {
       distance: 0 + (100 - 0) * (distanceTime - 0) / ((this.limitTime.value - this.beginTime) - 0),
-      minutes: this.convertTime(
-        Math.floor((distanceTime % (1000 * 60 * 60)) / (1000 * 60))
-      ),
-      seconds: this.convertTime(
-        Math.floor((distanceTime % (1000 * 60)) / 1000)
-      ),
+      minutes: Math.floor((distanceTime % (1000 * 60 * 60)) / (1000 * 60)),
+      seconds: Math.floor((distanceTime % (1000 * 60)) / 1000)
     };
     this.controlIsFinish();
     return this.time;
+  }
+  getScore() {
+    const currentTime = new Date().getTime();
+    const distanceTime = this.limitTime.value - currentTime;
+    let result = this.score.seconds + Math.floor((distanceTime % (1000 * 60)) / 1000);
+    if (result >= 60) {
+        this.score.minutes += 1;
+        result -= 60;
+    }
+    this.score.minutes += Math.floor((distanceTime % (1000 * 60 * 60)) / (1000 * 60));
+    this.score.seconds = result;
+    return this.score;
   }
   controlIsFinish() {
     const currentTime = new Date().getTime();

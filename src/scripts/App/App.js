@@ -27,11 +27,7 @@ export default class App {
     this.app = {
       start: {
         content: {
-          toto: "toto",
-          message: {
-            titi: "titi",
-            tutu: "tutu",
-          },
+          titleURL: "../public/images/titre.svg"
         },
       },
       games: [
@@ -334,6 +330,7 @@ export default class App {
       });
     }
     this.timer = new Timer();
+    this.score = 0;
     this.game = new Game(this.router, this.gui);
   }
   addRoutes(obj) {
@@ -445,6 +442,7 @@ export default class App {
             this.game.reset();
             this.game.sentences = [];
         }
+        this.timer.score = this.timer && { minutes: 0, seconds: 0 };
   
         this.game.init({
           data: this.app,
@@ -458,6 +456,12 @@ export default class App {
   getPageFinish(page) {
     const $page = this.$app.querySelector(`.${page}`);
     const $button = $page.querySelector("button");
+    const $time = $page.querySelector(".js-time");
+    if (this.timer.convertTime(this.timer.score.minutes) != "00") {
+        $time.innerHTML = this.timer.convertTime(this.timer.score.minutes) + ' minutes et ' + this.timer.convertTime(this.timer.score.seconds) + ' secondes';
+    } else {
+        $time.innerHTML = this.timer.convertTime(this.timer.score.seconds) + ' secondes';
+    }
     $button.addEventListener("click", () => {
       this.gameStep = 0;
       this.levelStep = 0;
@@ -475,6 +479,8 @@ export default class App {
 
   getPageGameLevel(page) {
     const $page = this.$app.querySelector(`.${page}`);
+    // this.$bar = $page.querySelector(`.${page} .timer .container-bar .bar`);
+    // this.$bar.style.width = "70%";
     // console.log("gamelvl", this.game.sentences);
 
     this.timer && this.timer.init();
@@ -494,6 +500,8 @@ export default class App {
             this.game.$game.remove()
           }
       } else {
+        const $bar = $page.querySelector(`.${page} .timer .container-bar .bar`);
+        $bar.style.width = this.timer.getTime().distance + "%";
         requestAnimationFrame(render);
       }
       this.game.update();
@@ -604,14 +612,39 @@ export default class App {
   generatePageStart(page) {
     this.$app.innerHTML += `
             <div class="is-hide page ${page.name}">
-                <button>Start</button>
+                <div class="container-page">
+                    <div class="container-img">
+                        <img src="${page.content.titleURL}" alt=""/>
+                    </div>
+                    <ol class="container-list">
+                        <li>
+                            <p><span class="style-btn-1">1</span>Écoutez les instructions contenues dans la vidéo</p>
+                        </li>
+                        <li>
+                            <p><span class="style-btn-1">2</span>Mémorisez-les attentivement</p>
+                        </li>
+                        <li>
+                            <p><span class="style-btn-1">3</span>Choisissez les mots justes pour passer votre commande</p>
+                        </li>
+                    </ol>
+                    <div class="container-btn">
+                        <button class="style-btn-2">Commencer</button>
+                    </div>
+                </div>
             </div>
         `;
   }
   generatePageFinish(page) {
     this.$app.innerHTML += `
             <div class="is-hide page ${page.name}">
-            <button>Retry</button>
+                <div class="container-page">
+                    <div class="container-text">
+                        <p>Bravo ! Tu as réussis à passer commande en <span class="style-bold"><span class="js-time"></span></span></p>
+                    </div>
+                    <div class="container-btn">
+                        <button class="style-btn-2">Améliorer mon temps</button>
+                    </div>
+                </div>
             </div>
         `;
   }
@@ -665,7 +698,11 @@ export default class App {
 
         this.$levels[i].innerHTML += `
                     <div class="is-hide page levels ${page.name}">
-                        <p>Page ${page.name}</p>
+                        <div class="timer">
+                            <div class="container-bar">
+                                <div class="bar"></div>
+                            </div>
+                        </div>
                     </div>
                 `;
       }

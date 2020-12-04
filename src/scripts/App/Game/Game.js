@@ -109,14 +109,17 @@ class Game {
               this.app.games[this.gameStep].levels.length - 1
             ) {
               this.timer.stop();
+              console.log(this.timer.getScore());
               this.router.navigate(`/games/${this.gameStep}/ending`);
             } else {
               this.timer.stop();
+              console.log(this.timer.getScore());
               // this.levelStep += 1;
               // this.router.navigate(`/games/${this.gameStep}/levels/${this.levelStep}`);
               this.router.navigate(`/games/${this.gameStep}/questionning`);
             }
           } else {
+            this.timer.stop();
             this.router.navigate(`/games/${this.gameStep}/repeating`);
           }
 

@@ -1,13 +1,19 @@
-$body-color: slateblue;
+$color-1: #FC7251;
+$color-2: #fdcbb7;
 
 // Import Reset
 @import "./reset.scss";
 
 body {
   min-height: 100vh;
-  color: $body-color;
-  font-family: sans-serif;
+  font-family: 'Raleway', sans-serif;
+  font-size: 36px;
   margin: 0;
+}
+
+button {
+  font-family: 'Raleway', sans-serif;
+  font-size: 36px;
 }
 
 #game {
@@ -69,4 +75,137 @@ body {
 video {
   width: 100vw;
   height: auto;
+}
+
+.timer {
+  position: absolute;
+  top: 25px; left: 25px;
+  .container-bar {
+    display: block;
+    width: 300px;
+    height: 10px;
+    background-color: $color-2;
+    border-radius: 25px;
+    .bar {
+      display: block;
+      width: 0;
+      height: 100%;
+      background-color: $color-1;
+      border-radius: 25px;
+    }
+  }
+}
+
+// Containers
+
+.container-page {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: calc(100% - 20px);
+  height: calc(100% - 20px);
+  min-height: calc(100vh - 20px);
+  max-width: 1420px;
+  margin: 0 auto;
+  padding: 10px;
+  & > *:not(:last-child) {
+    margin-bottom: 1.5% !important;
+  }
+}
+
+.container-img {
+  img {
+    width: 100%;
+    height: auto;
+  }
+}
+
+.container-list {
+  li {
+    &:not(:last-child) {
+      margin-bottom: 1.25%;
+    }
+    p {
+      span {
+        margin-right: 10px;
+      }
+    }
+  }
+}
+
+.container-text {
+  p {
+    &:not(:last-child) {
+      margin-bottom: 1.25%;
+    }
+  }
+}
+
+// Styles
+
+.style-bold {
+  font-weight: bold;
+}
+
+.style-btn-1 {
+  display: inline-block;
+  min-width: 36px;
+  min-height: 36px;
+  padding: 10px;
+  color: $color-1;
+  border: $color-1 solid 3px;
+  border-radius: 100%;
+  font-weight: bold;
+  line-height: 0.8;
+  text-align: center;
+}
+
+.style-btn-2 {
+  display: inline-block;
+  min-width: 494px;
+  min-height: 106px;
+  padding: 10px;
+  background-color: $color-1;
+  color: white;
+  border: $color-1 solid 3px;
+  border-radius: 75px;
+  font-weight: bold;
+  line-height: 0.8;
+  text-align: center;
+}
+
+// Pages
+
+.page.start {
+  .container-img {
+    width: calc(100% - 50px);
+    height: calc(100% - 50px);
+    max-width: 621.77px;
+    margin: 0 auto;
+    padding: 25px;
+  }
+  .container-list {
+    width: calc(100% - 50px);
+    height: calc(100% - 50px);
+    max-width: 1021.77px;
+    margin: 0 auto;
+    padding: 25px;
+  }
+}
+
+.page.finish {
+  .container-text {
+    width: calc(100% - 50px);
+    height: calc(100% - 50px);
+    max-width: 1021.77px;
+    margin: 0 auto;
+    padding: 25px;
+    p {
+      color: $color-1;
+      font-size: 48px;
+      text-align: center;
+    }
+  }
 }
