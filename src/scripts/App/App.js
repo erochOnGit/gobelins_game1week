@@ -577,9 +577,11 @@ export default class App {
     const $page = this.$app.querySelector(`.${page}`);
     const $video = $page.querySelector("video");
     $video.play();
-    $video.addEventListener("ended", () => {
-      this.router.navigate(`/games/${this.gameStep}/levels/${this.levelStep}`);
-    });
+    let endedHandler = () => {
+        this.router.navigate(`/games/${this.gameStep}/levels/${this.levelStep}`);
+        $video.removeEventListener("ended", endedHandler, false);
+    };
+    $video.addEventListener("ended", endedHandler, false);
   }
   getPageGameQuestionning(page) {
     const $page = this.$app.querySelector(`.${page}`);
@@ -597,6 +599,13 @@ export default class App {
     const $page = this.$app.querySelector(`.${page}`);
     const $video = $page.querySelector("video");
     $video.play();
+
+    this.game.sentences[this.levelStep].isFinish = false;
+    this.game.sentences[this.levelStep].listIdWordsSentence = [];
+    this.game.sentences[this.levelStep].sizeCurrentSentence = 0;
+    this.game.reset();
+    this.game.$game.remove();
+
     let endedHandler = () => {
       this.router.navigate(`/games/${this.gameStep}/levels/${this.levelStep}`);
       $video.removeEventListener("ended", endedHandler, false);

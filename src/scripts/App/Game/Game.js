@@ -31,7 +31,7 @@ class Game {
     }
     this.obj = {
       size: 23,
-      speed: 8,
+      speed: 6,
       timeMaxMinutes: this.timer.limitTime.minutes,
       timeMaxSeconds: this.timer.limitTime.seconds,
     };
@@ -70,6 +70,8 @@ class Game {
     this.$scene = document.querySelector(
       `.games_${this.gameStep}_levels_${this.levelStep} #scene`
     );
+    console.log(this.sentences)
+    console.log(this.levelStep)
     this.sentences[this.levelStep].updateContainer(
       `.games_${this.gameStep}_levels_${this.levelStep}`
     );
