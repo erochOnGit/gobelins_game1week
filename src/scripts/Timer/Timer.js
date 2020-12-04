@@ -12,8 +12,13 @@ export default class Timer {
   getTime() {
     const currentTime = new Date().getTime();
     const distanceTime = this.limitTime.value - currentTime;
+
+    // const distance = ((this.limitTime.minutes * 60) + this.limitTime.seconds) - (((Date.now() - this.beginTime) / 1000) | 0);
+    // const diff = (((Date.now() - this.beginTime) / 1000));
+
     this.time = {
       distance: 0 + (100 - 0) * (distanceTime - 0) / ((this.limitTime.value - this.beginTime) - 0),
+    //   distance: 0 + (100 - 0) * (distance - 0) / (((this.limitTime.minutes * 60) + this.limitTime.seconds) - 0),
       minutes: Math.floor((distanceTime % (1000 * 60 * 60)) / (1000 * 60)),
       seconds: Math.floor((distanceTime % (1000 * 60)) / 1000)
     };
@@ -22,7 +27,7 @@ export default class Timer {
   }
   getScore() {
     const currentTime = new Date().getTime();
-    const distanceTime = this.limitTime.value - currentTime;
+    const distanceTime = currentTime - this.beginTime;
     let result = this.score.seconds + Math.floor((distanceTime % (1000 * 60)) / 1000);
     if (result >= 60) {
         this.score.minutes += 1;
